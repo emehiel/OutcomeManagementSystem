@@ -1,0 +1,158 @@
+ID,CourseID,Description,SO_KPIID,ProgramOutcomeID
+1,121,Understand the major professional subjects in aerospace engineering,1,1
+2,121,Understand the basic principles of flight,1,1
+3,121,Understand the basic components of space systems,1,1
+4,121,Construct simple aircraft and rocket models,1,1
+5,121,Present basic vehicle data in a written report,1,1
+6,121,Work as part of a team,1,1
+7,215,Understand the basics of aerospace disciplines,1,1
+8,215,Understand basics of flight,1,1
+9,215,Understand basics of orbits,1,1
+10,215,Intermediate use of Matlab,1,1
+11,220,Decompose a system level requirement into subsystem requirements.,1,1
+12,220,Analyze and document subsystem interface requirements.,1,1
+13,220,Select subsystem components based on requirements.,1,1
+14,220,Trace system level requirements to all related subsystems and components.,1,1
+15,220,Verify and validate design solutions based on analysis.,1,1
+16,220,Work effectively with team members to solve and document engineering design problem based on mission requirement.,1,1
+17,299,"Understand the basics of incompressible fluid mechanics including conservation of mass, momentum and energy ",1,1
+18,299,Understand the 1st and 2nd laws of thermodynamics and be able to apply these laws to engineering problems ,1,1
+19,299,Analyze problems of expansion and compression work,1,1
+20,299,Evaluate thermodynamic properties for liquids and gases  ,1,1
+21,299,Analyze control volumes at steady state  ,1,1
+22,299,Apply entropy balance for closed systems ,1,1
+23,300,"Understand and apply the theory of Differential Equations, Linear Algebra, Vector Calculus, and Partial Differential Equations to Solve Aerospace Engineering Problems",1,1
+24,300,Apply the MATLAB programming language and programming tools to the analysis and numerical solution of aerospace problems.  Explain and understand the accuracy of the results,1,1
+25,300,Develop and analyze the mathematical equations and models used to describe various aerospace engineering problems and present the results graphically ,1,1
+26,300,Design engineering solutions for technical case studies and projects in aerospace engineering ,1,1
+27,300,Communicate the functionality of MATLAB code using pseudocode and appropriate comments. ,1,1
+28,302,Calculate solutions to problems based on an understanding of fluid properties and associate fluid theory.,1,1
+29,302,Design and perform fluid flow visualization experiments.,1,1
+30,302,Design fluid experimental plans and data analysis tools. Perform experimentation and evaluate error and uncertainty in flow measurements.,1,1
+31,302,Establish an understanding of conservation principles and the application of Bernoulli’s equation.,1,1
+32,302,"Solve external flow aerospace problems involving lift, drag, boundary layers, and scale testing.",1,1
+33,302,"Introduce modern computing software, computational fluid dynamics, and use to solve aerospace problems.",1,1
+34,303,Evaluate thermodynamic properties for liquids and gases ,1,1
+35,303,"Understand the governing equations: conservation of mass, momentum and energy ",1,1
+36,303,Understand one dimensional compressible flow with area change ,1,1
+37,303,Calculate properties for Fanno and Rayleigh flow ,1,1
+38,303,Analyze problems for flow with normal and oblique shocks ,1,1
+39,303,Calculate properties across oblique shock reflections ,1,1
+40,303,"Describe steady heat transfer by conduction, convection and radiation ",1,1
+41,303,Analyze transient conduction for simple geometries ,1,1
+42,306,Analyze (qualitatvely and quanttatvelyl two-dimensionaln incompressible fows around aerodynamic shapes,1,1
+43,306,Create computatonal models of incompressible fows and be able to interpret the results,1,1
+44,306,Understand the diferences between two-dimensional and three-dimensional aerodynamics models and describe how those diferences afect the aerodynamic performance,1,1
+45,306,Predict the performance characteristcs of airfoils and simple wings,1,1
+46,306,Apply simple viscous modeling techniques to approximate the efects of viscosity on the aerodynamic performance of low-speed vehicles,1,1
+47,307,Analyze the accuracy of CFD simulations both qualitatively and quantitatively,1,1
+48,307,Construct validation and verification test cases with appropriate comparison data,1,1
+49,307,Discuss the significant numerical features of a CFD code and evaluate the limitations of approaches,1,1
+50,307,Design and conduct a full cycle of CFD investigation; solve and visualize the results for simple-to-moderately-complex external aerodynamics,1,1
+51,307,"Research the development and application of turbulence models, and apply to simulations with open-ended outcome potential",1,1
+52,307,"Explore and discuss the role of CFD in the modern aerospace industry; context, limitations, future applications",1,1
+53,320,Show ability to manipulate the fundamental equations of motion of 6-DoF Newtonian Kinematics and Dynamics problems as related to the motion of Aerospace Vehicles,1,1
+54,320,Apply and interpret linearization techniques to equations of motion for analysis in the frequency and time domains,1,1
+55,320,Model and simulate dynamic systems and transfer functions associated with aerospace applications and calculate standard responses using computer applications such as MATLAB® and Simulink®,1,1
+56,320,"Explain the differences between open and closed loop systems and describe the fundamental concept of feedback, robustness, and performance",1,1
+57,320,Determine the stability properties of nonlinear and linear systems,1,1
+58,320,"Use MATLAB® and Simulink® to model, simulate, analyze and design, dynamic control systems for aerospace applications",1,1
+59,320,Apply the fundamentals of feedback controller design to modify system dynamic response and develop PID feedback controllers,1,1
+60,321,Describe the physics of sensors and actuators for use in basic feedback control systems.,1,1
+61,321,Classify the sources of error associated with sensors and measurements.,1,1
+62,321,Compare experimental implementations of dynamic systems to physical/mathematical models.,1,1
+63,321,Discuss the fundamentals and limitations of physical actuators.,1,1
+64,321,Construct a mathematical and software model of an actuator.,1,1
+65,321,"Design, implement and compare/analyze a PID control law for a prototypical 2nd order dynamic system.",1,1
+66,331,Compute deformations for a wide variety of structures; ,1,1
+67,331,"Analyze statically-indeterminate structures, including trusses, beams, and frames ",1,1
+68,331,Gain an understanding of various energy methods ,1,1
+69,331,Use matrix methods in structural analysis. ,1,1
+70,350,"Create and apply system requirements by developing system requirements from an identification of stakeholders and assessment of needs, deriving requirements, and organizing requirements in a Requirement Breakdown Structure (RBS).",1,1
+71,350,"Create a project plan to effectively achieve project objectives, with decomposition of tasks, identification of resources, and a Work Breakdown Structure (WBS) to ensure effective use of a team.",1,1
+72,350,"Apply trade studies for design decision making while ensuring project requirements and constraints are satisfied, and effects on required project resources are determined.",1,1
+73,351,Understand the fundamentals of orbital motion,1,1
+74,351,Apply the fundamentals of Dynamics Theory to the Keplerian Orbital Motion problem,1,1
+75,351,Predict the position and velocity of a satellite for all orbit types,1,1
+76,351,Understand the basic concepts of 3- dimensional orbits,1,1
+77,351,Analyze and simulate orbit maneuvers and transfers,1,1
+78,355,Analyze and investigate the effects of the vacuum environment on spacecraft.,1,1
+79,355,Analyze and investigate the effects of the neutral environment on spacecraft both independently and synergistically with other environmental effects.,1,1
+80,355,Analyze and investigate the effects of the particulate environment on spacecraft both independently and synergistically with other environmental effects.,1,1
+81,355,Describe the design and application of laboratory vacuum equipment.,1,1
+82,355,Apply safety practices associated with spacecraft and laboratory hardware.,1,1
+83,355,Apply the fundamental knowledge of specific regimes of the space environment to spacecraft and laboratory hardware,1,1
+84,355,Explain how the space environment affects mission and spacecraft design.,1,1
+85,356,Analyze and investigate the effects of the plasma environment on spacecraft both independently and synergistically with other environmental effects.,1,1
+86,356,Analyze and investigate the effects of the radiation environment on spacecraft both independently and synergistically with other environmental effects.,1,1
+87,356,"Apply the fundamentals of the launch, vacuum, neutral, particulate, plasma, and radiation environments to specific regimes of space (e.g. altitude, inclination) and systems of the spacecraft (e.g. attitude dynamics and control, avionics, electrical power, life support, propulsion, structures, thermal control, and telemetry)",1,1
+88,356,Apply knowledge of the space environment to mission and spacecraft design.,1,1
+89,356,Apply the fundamental knowledge of specific regimes of the space environment to spacecraft and laboratory.,1,1
+90,401,Calculate performance for rockets and airbreathing cycles for aerospace applications,1,1
+91,401,Apply cycle analysis techniques for design of airbreathing systems,1,1
+92,401,Determine component performance for airbreathing cycles,1,1
+93,401,Understand the difference between performance expectations of rockets and jet cycles,1,1
+94,401,Characterize rocket systems with various energy sources,1,1
+95,401,Understand historical context of rocket and jet development,1,1
+96,401,Develop and discuss methods for how to apply systems thinking to propulsion application development,1,1
+97,402,Analyze and compare the variation in propulsion fundamentals to design spacecraft propulsion systems for low earth orbiting to interplanetary spacecraft,1,1
+98,402,Apply the fundamentals of specific propulsion system design to spacecraft and missions,1,1
+99,402,Analyze how different propulsion subsystems affect spacecraft design,1,1
+100,405,"Analyze (qualitatively and quantitatively) two-dimensional, supersonic flows around aerodynamic shapes.",1,1
+101,405,Create computational models of supersonic flows and be able to interpret the results.,1,1
+102,405,Understand the differences between two-dimensional and three-dimensional aerodynamics models and describe how those differences affect the aerodynamic performance.,1,1
+103,405,Apply gas dynamics fundamentals to typical aerospace engineering problems.,1,1
+104,405,Apply simple viscous modeling techniques to approximate the effects of viscosity on the aerodynamic performance of supersonic vehicles,1,1
+105,420,Understand the basic concepts of airplane stability and Control,1,1
+106,420,Learn how to derive the equations for stability and control,1,1
+107,420,Understand how to design an airplane to be stable and controllable,1,1
+108,420,Learn how to derive and understand the 6DOF equations for an airplane,1,1
+109,421,"Describe the fundamentals of rotational motion as related to spacecraft, launch vehicle. and re-entry vehicles",1,1
+110,421,Understand spacecraft attitude sensors in terms of guidance and navigation,1,1
+111,421,Understand and analyze spacecraft attitude control actuators including momentum exchange devices (CMGs and Momentum Wheels) and external moment devices (thrusters and magnetorqures),1,1
+112,421,"Design and Analyze the performance of a spacecraft, launch vehicle and re-entry vehicle attitude control system",1,1
+113,421,Appreciate the limitations of spacecraft attitude control systems due to space operation environment,1,1
+114,433,Design experimental procedures for performing mechanical tests,1,1
+115,433,Utilize the concept of stress and strain in solving real-world problems under varios loading conditions,1,1
+116,433,Identify underlying principles in using strain gages,1,1
+117,433,Mount strain gages and take measurements under various loading conditions,1,1
+118,433,Perform a range of mechanical tests independtly,1,1
+119,443,Learn how to perform aircraft configuration tradeoffs,1,1
+120,443,Learn how to perform aircraft sizing ,1,1
+121,443,"Learn how to organize design activities, using management tools",1,1
+122,443,"Have a comprehensive view of the aircraft design process, treating it as a complete system for a complete life-cycle. ",1,1
+123,443,Understanding of aircraft certification regulation. ,1,1
+124,443,Learn how to interpret and derive requirements ,1,1
+125,443,Increase the knowledge about aircraft market ,1,1
+126,443,"Lear how to create high level presentations, including charts, drafting and other analysis",1,1
+127,443,Learn how to give engineer presentation ,1,1
+128,443,Learn how to create engineer reports ,1,1
+129,444,"The students should be able to apply design and analysis methods to solving various problems in aircraft design, specifically to the following problems",1,1
+130,444,Aircraft configuration tradeoffs,1,1
+131,444,Performance analysis,1,1
+132,444,Integration of aircraft design and concepts,1,1
+133,444,Economics estimation and assessments,1,1
+134,444,Evaluation of flight safety implications of design options,1,1
+135,446,Understand the basic functions of all spacecraft subsystems,1,1
+136,446,Understand the basic components and performance metrics of spacecraft power subsystem,1,1
+137,446,Evaluate the performance of power system components and develop a power budget,1,1
+138,446,Understand the basic components and performance metrics of spacecraft communications subsystems,1,1
+139,446,Evaluate the performance of communications components and develop a link budget,1,1
+140,446,Understand the basic interactions between spacecraft subsystems to perform design trades,1,1
+141,447,Understand the functions of spacecraft subsystems,1,1
+142,447,Identify and formulate the design requirements for a space system,1,1
+143,447,Understand launch system effect on satellite and payload design and performance,1,1
+144,447,Evaluate spacecraft subsystem performance and trades,1,1
+145,447,"Trade subsystem performance requirements to optimize higherlevel system performance, cost, or weight",1,1
+146,447,Solve problems as part of a team,1,1
+147,460,Graduate school requirements and the value of graduate degrees relative to career plans,1,1
+148,460,"Personal marketing strategies: personal ""business"" cards, networking (social media, professional associations) business correspondence format, resumes, interviews, and salary negotiations",1,1
+149,460,"Business etiquette, professionalism and team dynamics",1,1
+150,460,Basic knowledge of the entrepreneurial process and protecting intellectual property,1,1
+151,460,The importance of ethics in the aerospace industry,1,1
+152,460,"Career development, and maintaining knowledge of contemporary issues through lifelong learning and the value of additional certifications",1,1
+153,465,"Apply the foundational engineering sciences to propose, design and implement an experiment to test a hypothesis",1,1
+154,465,"Demonstrate an understanding of complex integrated systems through experimentation, reduction and analysis of data",1,1
+155,465,Measure and interpret complex physical phenomena and draw conclusions based on sound engineering principles,1,1
+156,465,"Communicate experimental techniques, data acquisition and synthesis, analysis, and understanding of complex systems",1,1
+157,465,Identify the fundamental relationships of physical systems grounded in foundational engineering principles,1,1

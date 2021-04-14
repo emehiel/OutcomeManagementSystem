@@ -1,0 +1,13 @@
+ID,PO #,Description,ShortName
+1,1,Aerodynamics,Aeronautics
+2,2,Aerospace Materials,Aeronautics
+3,3,Structures,Aeronautics
+4,4,Propulsion,Aeronautics
+5,5,Flight Mechancs,Aeronautics
+6,6,Stability and Control,Aeronautics
+7,7,Orbital Mechanics,Astronautics
+8,8,Space Environment,Astronautics
+9,9,Attitude Determination and Control,Astronautics
+10,10,Telecommunications,Astronautics
+11,11,Space Structures,Astronautics
+12,12,Rocket Propulsion,Astronautics

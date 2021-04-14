@@ -1,0 +1,134 @@
+﻿@page
+@model OutcomeManagementSystem.Pages.Courses.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+@{
+    var prevDisabled = !Model.CourseIndex.HasPrevious ? "disabled" : "";
+    var nextDisabled = !Model.CourseIndex.HasNext ? "disabled" : "";
+
+}
+<div class="text-center">
+    <a asp-page="./Details"
+       asp-route-id="@(Model.Course.ID - 1)"
+       class="btn rounded-pill border-primary @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="./Details"
+       asp-route-id="@(Model.Course.ID + 1)"
+       class="btn rounded-pill border-primary @nextDisabled">
+        Next
+    </a>
+</div>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Department)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Department)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Number)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Number)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Units)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Units)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Concentration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Concentration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Quarter)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Quarter)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.Year)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.Year)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.PreReqMaps)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Department</th>
+                    <th>Number</th>
+                    <th>Title</th>
+                </tr>
+                @foreach (var item in Model.Course.PreReqMaps)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PreReq.Course.Department)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PreReq.Course.Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PreReq.Course.Title)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.CLOs)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                </tr>
+                @foreach (var item in Model.Course.CLOs)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Course.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

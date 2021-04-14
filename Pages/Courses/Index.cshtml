@@ -1,0 +1,157 @@
+﻿@page
+@model OutcomeManagementSystem.Pages.Courses.IndexModel
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h1>Courses</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by title or name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
+@{
+    var prevDisabled = !Model.Courses.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Courses.HasNextPage ? "disabled" : "";
+}
+<div class="text-center">
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Courses.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn rounded-pill border-primary @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Courses.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn rounded-pill border-primary @nextDisabled">
+        Next
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Department)
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NumberSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                @Html.DisplayNameFor(model => model.Courses[0].Number)
+                    </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                @Html.DisplayNameFor(model => model.Courses[0].Title)
+                    </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Units)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Quarter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Concentration)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Courses)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Units)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quarter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Concentration)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+<!--
+<div class="container">
+    <h3>Popover Example</h3>
+    <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
+</div>
+    -->
+<script>
+    $('[data-bs-toggle="popover"]').popover();
+</script>
+<div class="container-fluid bg-light p-3 rounded-3">
+
+    <div class="d-grid gap-3">
+        @foreach (var course in Model.Courses)
+        {
+            <div class="col-xl-3 col-sm-6 col-12 rounded-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            @string.Concat(course.Department + " " + course.Number)
+                        </div>
+                        <div class="card-subtitle mb-2 text-muted">
+                            @course.Title
+                        </div>
+                        <div class="card-text">
+                            @course.Description
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>

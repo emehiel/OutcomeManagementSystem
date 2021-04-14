@@ -1,0 +1,96 @@
+﻿@page "{id:int?}"
+@model OutcomeManagementSystem.Pages.FlowChart2.IndexModel
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h1>Courses</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Number</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CourseData.Courses)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.CourseID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.CourseData.CLOs != null)
+{
+    <h3>
+        CLOs for Selected Course
+    </h3>
+    <table class="table">
+        <tr>
+            <th>Description</th>
+            <th>Program Outcome</th>
+            <th>SO-KPI</th>
+        </tr>
+        @foreach (var item in Model.CourseData.CLOs)
+        {
+            <tr>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @item.ProgramOutcome
+                </td>
+                <td>
+                    @item.SO_KPI
+                </td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.CourseData.PreReqs != null)
+{
+    <h3>
+        PreReqs for Selected Course
+    </h3>
+    <table class="table">
+        <tr>
+            <th>Department</th>
+            <th>Number</th>
+        </tr>
+        @foreach (var item in Model.CourseData.PreReqs)
+        {
+            <tr>
+                <td>
+                    @item.Department
+                </td>
+                <td>
+                    @item.Number
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,154 @@
+﻿@page  "{id:int?}"
+@model OutcomeManagementSystem.Pages.FlowChart.IndexModel
+@using OutcomeManagementSystem.Models 
+
+@{
+    ViewData["Title"] = "Flow Chart";
+}
+
+<h1>Flow Chart</h1>
+
+<style type="text/css">
+    .grey {
+        border-color: grey;
+    }
+
+    .Major {
+        border-color: khaki;
+    }
+
+    .Aeronautics {
+        border-color: lightcoral;
+    }
+
+    .Aeronautics {
+        border-color: lime;
+    }
+
+    .Support {
+        border-color: aquamarine
+    }
+</style>
+<div class="container-fluid bg-light p-3 rounded-3">
+
+    <div class="d-grid gap-3">
+        <div class="row">
+            <div class="col-xl-3">
+                <h3>Prerequisites</h3>
+                @if (Model.CourseData.PreReqs != null)
+                {
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Department
+                            </th>
+                            <th>
+                                Number
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model.CourseData.PreReqs)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Department
+                                </td>
+                                <td>
+                                    @item.Number
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+                <h3>CLOs</h3>
+                @if (Model.CourseData.CLOs != null)
+                {
+                    <table class="table text-truncate">
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                ABET KPI
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model.CourseData.CLOs)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Description
+                                </td>
+                                <td>
+                                    @item.SO_KPI.Description
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+            </div>
+            <div class="col-xl-9">
+                <div class="row">
+                    @foreach (YearType y in Enum.GetValues(typeof(YearType)))
+                    {
+                        <div class="col-xl-3">
+                            @string.Concat(y + " Year")
+
+                            <div class="row">
+                                @foreach (QuarterType q in Enum.GetValues(typeof(QuarterType)))
+                                {
+                                    <div class="col-xl-4">
+                                        @if(q != QuarterType.unknown)
+                                        {
+                                            Convert.ToString(q);
+                                        }
+                                        @foreach (var course in Model.CourseData.Courses.Where(c => c.Quarter == q && c.Year == y && c.Quarter != QuarterType.unknown))
+                                        {
+                                            string borderStyle = "";
+                                            <div class="row">
+                                                @if (Model.CourseData.PreReqs != null)
+                                                {
+                                                    if (Model.CourseData.PreReqs.Where(c => c.Department == course.Department && c.Number == course.Number).Any())
+                                                    {
+                                                        borderStyle = "card border-primary mb-3";
+                                                    }
+                                                }
+                                                <div class="card @borderStyle">
+                                                    <div class="card-body p-0 m-0">
+                                                        <div class="card-title text-center">
+                                                            @string.Concat(course.Department + " " + course.Number)
+                                                        </div>
+                                                        <a asp-page="./Index" asp-route-id="@course.ID" type="button" class="btn btn-outline-primary">Info</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @if (false)
+    {
+        <div class="card border-primary mb-3">
+            <div class="card-title">
+                Test
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-title">
+                Test
+            </div>
+        </div>
+    }
+</div>
