@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OutcomeManagementSystem.Models
 {
@@ -53,10 +54,8 @@ namespace OutcomeManagementSystem.Models
         public YearType Year { get; set; }
         public QuarterType Quarter { get; set; }
 
-        //public int PreReqID { get; set; }
-        //public int CLOID { get; set; }
-
-        public ICollection<PreReqMap> PreReqMaps { get; set; }
+        public CourseCoordinator CourseCoordinator { get; set; }
+        public ICollection<PreReq> PreReqs { get; set; }
         public ICollection<CLO> CLOs { get; set; }
        
     }

@@ -60,6 +60,12 @@
             @Html.DisplayFor(model => model.Course.Description)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course.CourseCoordinator)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course.CourseCoordinator.FullName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Course.Concentration)
         </dt>
         <dd class="col-sm-10">
@@ -78,7 +84,7 @@
             @Html.DisplayFor(model => model.Course.Year)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Course.PreReqMaps)
+            @Html.DisplayNameFor(model => model.Course.PreReqs)
         </dt>
         <dd class="col-sm-10">
             <table class="table">
@@ -87,17 +93,17 @@
                     <th>Number</th>
                     <th>Title</th>
                 </tr>
-                @foreach (var item in Model.Course.PreReqMaps)
+                @foreach (var item in Model.Course.PreReqs)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PreReq.Course.Department)
+                            @Html.DisplayFor(modelItem => item.ReqCourse.Department)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PreReq.Course.Number)
+                            @Html.DisplayFor(modelItem => item.ReqCourse.Number)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PreReq.Course.Title)
+                            @Html.DisplayFor(modelItem => item.ReqCourse.Title)
                         </td>
                     </tr>
                 }
@@ -109,17 +115,21 @@
         <dd class="col-sm-10">
             <table class="table">
                 <tr>
-                    <th>ID</th>
                     <th>Description</th>
+                    <th>Program Outcome</th>
+                    <th>Student Outcome KPI</th>
                 </tr>
                 @foreach (var item in Model.Course.CLOs)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
+                            @Html.DisplayFor(modelItem => item.Description)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Description)
+                            @Html.DisplayFor(modelItem => item.ProgramOutcome.ShortName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SO_KPI.Description)
                         </td>
                     </tr>
                 }

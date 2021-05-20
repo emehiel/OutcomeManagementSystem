@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using OutcomeManagementSystem.Data;
 using OutcomeManagementSystem.Models;
 
-namespace OutcomeManagementSystem.Pages.PreReqs
+namespace OutcomeManagementSystem.Pages.Assessments
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace OutcomeManagementSystem.Pages.PreReqs
         }
 
         [BindProperty]
-        public PreReq PreReq { get; set; }
+        public Assessment Assessment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,14 +30,12 @@ namespace OutcomeManagementSystem.Pages.PreReqs
                 return NotFound();
             }
 
-            PreReq = await _context.PreReqs
-                .Include(p => p.Course).FirstOrDefaultAsync(m => m.ID == id);
+            Assessment = await _context.Assessments.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (PreReq == null)
+            if (Assessment == null)
             {
                 return NotFound();
             }
-           ViewData["CourseID"] = new SelectList(_context.Courses, "ID", "ID");
             return Page();
         }
 
@@ -50,7 +48,7 @@ namespace OutcomeManagementSystem.Pages.PreReqs
                 return Page();
             }
 
-            _context.Attach(PreReq).State = EntityState.Modified;
+            _context.Attach(Assessment).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +56,7 @@ namespace OutcomeManagementSystem.Pages.PreReqs
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PreReqExists(PreReq.ID))
+                if (!AssessmentExists(Assessment.ID))
                 {
                     return NotFound();
                 }
@@ -71,9 +69,9 @@ namespace OutcomeManagementSystem.Pages.PreReqs
             return RedirectToPage("./Index");
         }
 
-        private bool PreReqExists(int id)
+        private bool AssessmentExists(int id)
         {
-            return _context.PreReqs.Any(e => e.ID == id);
+            return _context.Assessments.Any(e => e.ID == id);
         }
     }
 }

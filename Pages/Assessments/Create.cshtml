@@ -1,0 +1,75 @@
+﻿@page
+@model OutcomeManagementSystem.Pages.Assessments.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "Assessments";
+}
+
+<h1>Create</h1>
+
+<h4>Assessment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Assessment.CanvasAssessmentID" class="control-label"></label>
+                <input asp-for="Assessment.CanvasAssessmentID" class="form-control" />
+                <span asp-validation-for="Assessment.CanvasAssessmentID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assessment.SubmissionScore" class="control-label"></label>
+                <input asp-for="Assessment.SubmissionScore" class="form-control" />
+                <span asp-validation-for="Assessment.SubmissionScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assessment.SubmissionDate" class="control-label"></label>
+                <input asp-for="Assessment.SubmissionDate" class="form-control" />
+                <span asp-validation-for="Assessment.SubmissionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assessment.OutcomeName" class="control-label"></label>
+                <input asp-for="Assessment.OutcomeName" class="form-control" />
+                <span asp-validation-for="Assessment.OutcomeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assessment.CanvasOutcomeID" class="control-label"></label>
+                <input asp-for="Assessment.CanvasOutcomeID" class="form-control" />
+                <span asp-validation-for="Assessment.CanvasOutcomeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assessment.OutcomeScore" class="control-label"></label>
+                <input asp-for="Assessment.OutcomeScore" class="form-control" />
+                <span asp-validation-for="Assessment.OutcomeScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assessment.CanvasCourseID" class="control-label"></label>
+                <input asp-for="Assessment.CanvasCourseID" class="form-control" />
+                <span asp-validation-for="Assessment.CanvasCourseID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assessment.OutcomePointsPossible" class="control-label"></label>
+                <input asp-for="Assessment.OutcomePointsPossible" class="form-control" />
+                <span asp-validation-for="Assessment.OutcomePointsPossible" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assessment.OutcomeMasteryScore" class="control-label"></label>
+                <input asp-for="Assessment.OutcomeMasteryScore" class="form-control" />
+                <span asp-validation-for="Assessment.OutcomeMasteryScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

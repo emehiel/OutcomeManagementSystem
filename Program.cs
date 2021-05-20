@@ -24,11 +24,11 @@ namespace OutcomeManagementSystem
 
                 try
                 {
+                    
                     // Change this to Migrations when data schema is established
                     var context = services.GetRequiredService<OutcomeManagementSystemContext>();
                     context.Database.EnsureCreated();
                     SeedData.Initialize(services);
-                    SeedData.LoadCatalogFromHTLM();
                 }
                 catch (Exception ex)
                 {

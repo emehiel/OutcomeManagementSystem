@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OutcomeManagementSystem.Data;
 using OutcomeManagementSystem.Models;
 
-namespace OutcomeManagementSystem.Pages.PreReqs
+namespace OutcomeManagementSystem.Pages.CLOReview
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace OutcomeManagementSystem.Pages.PreReqs
             _context = context;
         }
 
-        public PreReq PreReq { get; set; }
+        public Course Course { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,10 +28,9 @@ namespace OutcomeManagementSystem.Pages.PreReqs
                 return NotFound();
             }
 
-            PreReq = await _context.PreReqs
-                .Include(p => p.Course).FirstOrDefaultAsync(m => m.ID == id);
+            Course = await _context.Courses.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (PreReq == null)
+            if (Course == null)
             {
                 return NotFound();
             }

@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OutcomeManagementSystem.Data;
 using OutcomeManagementSystem.Models;
+using OutcomeManagementSystem.Models.CMSViewModels;
 
-namespace OutcomeManagementSystem.Pages.PreReqs
+namespace OutcomeManagementSystem.Pages.CLOReview
 {
     public class IndexModel : PageModel
     {
@@ -19,12 +20,12 @@ namespace OutcomeManagementSystem.Pages.PreReqs
             _context = context;
         }
 
-        public IList<PreReq> PreReq { get;set; }
+        public IList<Course> Course { get;set; }
+        public CLOReviewData CLOReviewData { get; set; }
 
         public async Task OnGetAsync()
         {
-            PreReq = await _context.PreReqs
-                .Include(p => p.Course).ToListAsync();
+            Course = await _context.Courses.ToListAsync();
         }
     }
 }

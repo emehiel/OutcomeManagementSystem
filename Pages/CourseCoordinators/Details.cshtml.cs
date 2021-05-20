@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OutcomeManagementSystem.Data;
 using OutcomeManagementSystem.Models;
 
-namespace OutcomeManagementSystem.Pages.Courses
+namespace OutcomeManagementSystem.Pages.CourseCoordinators
 {
     public class DetailsModel : PageModel
     {
@@ -17,11 +17,9 @@ namespace OutcomeManagementSystem.Pages.Courses
         public DetailsModel(OutcomeManagementSystem.Data.OutcomeManagementSystemContext context)
         {
             _context = context;
-            CourseIndex = new IndexEntity(0, _context.Courses.Count());
         }
 
-        public Course Course { get; set; }
-        public IndexEntity CourseIndex { get; set; }
+        public CourseCoordinator CourseCoordinator { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,20 +28,9 @@ namespace OutcomeManagementSystem.Pages.Courses
                 return NotFound();
             }
 
-            CourseIndex.Index = (int)id;
-            CourseIndex.TotalEntities = _context.Courses.Count();
+            CourseCoordinator = await _context.CourseCoordinators.FirstOrDefaultAsync(m => m.ID == id);
 
-            Course = await _context.Courses
-                .Include(c => c.CLOs)
-                .ThenInclude(clo => clo.ProgramOutcome)
-                .Include(c => c.CLOs)
-                .ThenInclude(sokpi => sokpi.SO_KPI)
-                .Include(s => s.PreReqs)
-                .ThenInclude(pr => pr.ReqCourse)
-                .Include(c => c.CourseCoordinator)
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (Course == null)
+            if (CourseCoordinator == null)
             {
                 return NotFound();
             }

@@ -13,7 +13,6 @@ namespace OutcomeManagementSystem.Models
         public int ID { get; set; }
         public string Description { get; set; }
         public int StudentOutcomeID { get; set; }
-
         [Ignore]
         public StudentOutcome StudentOutcome { get; set; }
     }

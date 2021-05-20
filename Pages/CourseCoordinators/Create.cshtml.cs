@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using OutcomeManagementSystem.Data;
 using OutcomeManagementSystem.Models;
 
-namespace OutcomeManagementSystem.Pages.PreReqs
+namespace OutcomeManagementSystem.Pages.CourseCoordinators
 {
     public class CreateModel : PageModel
     {
@@ -21,12 +21,11 @@ namespace OutcomeManagementSystem.Pages.PreReqs
 
         public IActionResult OnGet()
         {
-        ViewData["CourseID"] = new SelectList(_context.Courses, "ID", "ID");
             return Page();
         }
 
         [BindProperty]
-        public PreReq PreReq { get; set; }
+        public CourseCoordinator CourseCoordinator { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
@@ -37,7 +36,7 @@ namespace OutcomeManagementSystem.Pages.PreReqs
                 return Page();
             }
 
-            _context.PreReqs.Add(PreReq);
+            _context.CourseCoordinators.Add(CourseCoordinator);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

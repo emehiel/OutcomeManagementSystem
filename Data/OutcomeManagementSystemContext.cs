@@ -15,24 +15,19 @@ namespace OutcomeManagementSystem.Data
         }
 
         public DbSet<OutcomeManagementSystem.Models.Course> Courses { get; set; }
-
         public DbSet<OutcomeManagementSystem.Models.CLO> CLOs { get; set; }
-
-        public DbSet<OutcomeManagementSystem.Models.PreReq> PreReqs { get; set; }
-
         public DbSet<OutcomeManagementSystem.Models.ProgramOutcome> ProgramOutcomes { get; set; }
-
         public DbSet<OutcomeManagementSystem.Models.SO_KPI> SO_KPIs { get; set; }
-
         public DbSet<OutcomeManagementSystem.Models.StudentOutcome> StudentOutcomes { get; set; }
-        public DbSet<OutcomeManagementSystem.Models.PreReqMap> PreReqMaps { get; set; }
+        public DbSet<OutcomeManagementSystem.Models.PreReq> PreReqs { get; set; }
+        public DbSet<OutcomeManagementSystem.Models.CourseCoordinator> CourseCoordinators { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PreReqMap>()
-                .HasOne(p => p.PreReq)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Course>()
+                .HasMany(p => p.PreReqs)
+                .WithOne(c => c.Course)
+                .OnDelete(DeleteBehavior.Restrict);
             /*
             modelBuilder.Entity<Course>()
                 .HasMany(p => p.PreReqs)
@@ -44,8 +39,9 @@ namespace OutcomeManagementSystem.Data
             modelBuilder.Entity<SO_KPI>().ToTable("SO_KPI");
             modelBuilder.Entity<CLO>().ToTable("CLO");
             modelBuilder.Entity<Course>().ToTable("Course");
-            modelBuilder.Entity<PreReq>().ToTable("PreReq");
         }
+
+        public DbSet<OutcomeManagementSystem.Models.Assessment> Assessments { get; set; }
 
     }
 }

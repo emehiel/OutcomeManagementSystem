@@ -29,8 +29,8 @@ namespace OutcomeManagementSystem.Pages.FlowChart2
             CourseData = new CourseIndexData();
             CourseData.Courses = await _context.Courses
                 .Include(i => i.CLOs)
-                .Include(i => i.PreReqMaps)
-                .ThenInclude(pr => pr.PreReq.Course)
+                .Include(i => i.PreReqs)
+                .ThenInclude(pr => pr.Course)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -39,11 +39,11 @@ namespace OutcomeManagementSystem.Pages.FlowChart2
                 CourseID = id.Value;
                 Course selectedCourse = CourseData.Courses
                     .Where(i => i.ID == CourseID).Single();
-                var preReqMaps = selectedCourse.PreReqMaps.Where(pr => pr.CourseID == selectedCourse.ID);
+                var preReqMaps = selectedCourse.PreReqs.Where(pr => pr.CourseID == selectedCourse.ID);
                 List<Course> preReqs = new List<Course>();
                 foreach(var pr in preReqMaps)
                 {
-                    preReqs.Add(pr.PreReq.Course);
+                    preReqs.Add(pr.Course);
                     CourseData.PreReqs = preReqs;
                 }
                 //CourseData.PreReqs = preReqMaps

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OutcomeManagementSystem.Data;
 using OutcomeManagementSystem.Models;
 
-namespace OutcomeManagementSystem.Pages.PreReqs
+namespace OutcomeManagementSystem.Pages.Assessments
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace OutcomeManagementSystem.Pages.PreReqs
         }
 
         [BindProperty]
-        public PreReq PreReq { get; set; }
+        public Assessment Assessment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,10 +29,9 @@ namespace OutcomeManagementSystem.Pages.PreReqs
                 return NotFound();
             }
 
-            PreReq = await _context.PreReqs
-                .Include(p => p.Course).FirstOrDefaultAsync(m => m.ID == id);
+            Assessment = await _context.Assessments.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (PreReq == null)
+            if (Assessment == null)
             {
                 return NotFound();
             }
@@ -46,11 +45,11 @@ namespace OutcomeManagementSystem.Pages.PreReqs
                 return NotFound();
             }
 
-            PreReq = await _context.PreReqs.FindAsync(id);
+            Assessment = await _context.Assessments.FindAsync(id);
 
-            if (PreReq != null)
+            if (Assessment != null)
             {
-                _context.PreReqs.Remove(PreReq);
+                _context.Assessments.Remove(Assessment);
                 await _context.SaveChangesAsync();
             }
 
