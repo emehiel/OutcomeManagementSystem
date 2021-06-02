@@ -22,8 +22,10 @@ namespace OutcomeManagementSystem.Pages.Assessments
 
         public IList<Assessment> Assessment { get;set; }
         public AssessmentResults AssessmentResults { get; set; }
-        public List<string> MasteryResults { get; set; }
-        public List<string> MasteryLabels { get; set; }
+        public string MasteryResults { get; set; }
+        public string MasteryLabels { get; set; }
+        public List<string> OutcomeNames { get; set; }
+        public string OutcomeNamesString { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -31,23 +33,29 @@ namespace OutcomeManagementSystem.Pages.Assessments
             {
                 Assessments = await _context.Assessments.ToListAsync()
             };
-            MasteryResults = new List<string>();
-            MasteryLabels = new List<string> { @"['Exceeds Mastery', 'Mastery', 'Near Mastery', 'Below Mastery']" };
+
+            MasteryLabels = @"[[""Exceeds Mastery"", ""Mastery"",""Near Mastery"", ""Below Mastery""],
+                              [""Exceeds Expectations"", ""Meets Expectations"",""Approaches Expectations"", ""Needs More Time/Practice to Develop""]]";
             
-            var outcomeNames = AssessmentResults.Assessments.Select(ar => ar.OutcomeName).Distinct();
+            OutcomeNames = AssessmentResults.Assessments.Select(ar => ar.OutcomeName).Distinct().ToList();
 
-            foreach(var ar in outcomeNames)
+            MasteryResults = new string("[");
+
+            OutcomeNamesString = "[";
+
+            foreach(var on in OutcomeNames)
             {
-                var outcomeScores = AssessmentResults.Assessments.Where(os => os.OutcomeName == ar);
-                var totalAssessments = outcomeScores.Count()/100.0;
-                var masteryResult = "[";
-                masteryResult += Convert.ToString(outcomeScores.Where(ar => ar.OutcomeScore == 4).Count() / totalAssessments) + ", ";
-                masteryResult += Convert.ToString(outcomeScores.Where(ar => ar.OutcomeScore == 3).Count() / totalAssessments) + ", ";
-                masteryResult += Convert.ToString(outcomeScores.Where(ar => ar.OutcomeScore == 2).Count() / totalAssessments) + ", ";
-                masteryResult += Convert.ToString(outcomeScores.Where(ar => ar.OutcomeScore == 1).Count() / totalAssessments) + "]";
-                MasteryResults.Add(masteryResult);
-            }
+                OutcomeNamesString += @"""" + on + @""",";
 
+                var outcomeScores = AssessmentResults.Assessments.Where(os => os.OutcomeName == on);
+                var totalAssessments = outcomeScores.Count()/100.0;
+                MasteryResults += "[" + Convert.ToString(outcomeScores.Where(ar => ar.OutcomeScore == 4).Count() / totalAssessments) + ", ";
+                MasteryResults += Convert.ToString(outcomeScores.Where(ar => ar.OutcomeScore == 3).Count() / totalAssessments) + ", ";
+                MasteryResults += Convert.ToString(outcomeScores.Where(ar => ar.OutcomeScore == 2).Count() / totalAssessments) + ", ";
+                MasteryResults += Convert.ToString(outcomeScores.Where(ar => ar.OutcomeScore == 1).Count() / totalAssessments) + "],";
+            }
+            MasteryResults += "]";
+            OutcomeNamesString += "]";
         }
 
         /*

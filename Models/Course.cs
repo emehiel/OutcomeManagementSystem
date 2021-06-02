@@ -33,11 +33,22 @@ namespace OutcomeManagementSystem.Models
         [Display(Name = "Winter")]
         Winter,
 
-        [Display(Name = "Srping")]
+        [Display(Name = "Spring")]
         Spring,
 
         [Display(Name = "unknown")] 
         unknown
+    }
+    public enum Type
+    {
+        [Display(Name ="Major")]
+        Major,
+        [Display(Name = "Support")]
+        Support,
+        [Display(Name = "Concentration")]
+        Concentration,
+        [Display(Name = "General Education")]
+        GenerlEducation
     }
     public class Course
     {
@@ -53,6 +64,7 @@ namespace OutcomeManagementSystem.Models
         [Required]
         public YearType Year { get; set; }
         public QuarterType Quarter { get; set; }
+        //public Type Type { get; set; }
 
         public CourseCoordinator CourseCoordinator { get; set; }
         public ICollection<PreReq> PreReqs { get; set; }

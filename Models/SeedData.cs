@@ -132,12 +132,11 @@ namespace OutcomeManagementSystem.Models
 
                 string catalogText = htmlDoc.Text;
                 string noBlah = Regex.Replace(catalogText, @"&nbsp;", " ").Trim();
-                //File.WriteAllText("AeroCatalog_clean.xml", noBlah);
 
                 XDocument doc = XDocument.Parse(noBlah);
 
                 IEnumerable<XElement> coursesXElem = doc.Elements("div").Elements("div").Where(e => e.Attribute("class").Value == "courseblock");
-                //List<PreReqMap> preReqMaps = new List<PreReqMap>();
+
                 List<PreReq> preReqs = new List<PreReq>();
 
                 foreach (var courseXElem in coursesXElem)
@@ -201,26 +200,6 @@ namespace OutcomeManagementSystem.Models
                         context.PreReqs.Add(pr);
                     }
                 }
-                
-                /*
-                foreach (var prm in preReqMaps)
-                {
-                    if (courses.Find(c => c.Department == prm.CourseDept && c.Number == prm.CourseNumber) != null)
-                        prm.CourseID = courses.Find(c => c.Department == prm.CourseDept && c.Number == prm.CourseNumber).ID;
-
-
-                    if (preReqs.Find(pr => pr.CourseDept == prm.PreReqDept && pr.CourseNumber == prm.PreReqNumber) != null)
-                    {
-                        prm.PreReqID = courses.Find(c => c.Department == prm.PreReqDept && c.Number == prm.PreReqNumber).ID;
-                    }
-                    else
-                        prm.PreReqID = 1;
-
-                    context.PreReqMaps.Add(prm);
-                    context.SaveChanges();
-                }
-                //context.PreReqMaps.AddRange(preReqMaps);
-                */
                 context.SaveChanges();
 
             }

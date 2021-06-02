@@ -113,45 +113,18 @@
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a> |
+                <button>This is a new button @item.ID</button>
             </td>
         </tr>
         }
     </tbody>
 </table>
 
-<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
 <!--
-<div class="container">
-    <h3>Popover Example</h3>
-    <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
-</div>
-    -->
+<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+
 <script>
     $('[data-bs-toggle="popover"]').popover();
 </script>
-<div class="container-fluid bg-light p-3 rounded-3">
-
-    <div class="d-grid gap-3">
-        @foreach (var course in Model.Courses)
-        {
-            <div class="col-xl-3 col-sm-6 col-12 rounded-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">
-                            @string.Concat(course.Department + " " + course.Number)
-                        </div>
-                        <div class="card-subtitle mb-2 text-muted">
-                            @course.Title
-                        </div>
-                        <div class="card-text">
-                            @course.Description
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-
-
-</div>
+    --!>
