@@ -1,0 +1,99 @@
+﻿@page "{id:int?}"
+@model OutcomeManagementSystem.Pages.CanvasAPI.IndexModel
+@{
+    ViewData["Title"] = "Canvas-Test";
+}
+
+<a asp-page="./Index" asp-route-id="@Model.AccOutcome[0].id" type="button" class="btn btn-primary">@Model.AccOutcome[0].title</a>
+
+@{ if (Model.SubOutcomeGrp != null)
+    {
+        foreach (var item in Model.SubOutcomeGrp)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <a asp-page="./Index" asp-route-id="@item.id" type="button" class="btn btn-primary">@item.title + </a>
+                    @* <a type="button" href="#" class="btn btn-primary" onclick="myFunc();">Outcomes</a>*@
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@item.title.Replace(" ","")" runat="server">
+                        Outcomes
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="@item.title.Replace(" ","")" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Outcomes</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @{
+                                var subgs = Model.subgroup.GetSubGroupOutcomes(@item.id);
+                                if (subgs.Count != 0)
+                                {
+                                    foreach (var OutItem in subgs)
+                                    {
+                                        <p>@OutItem.outcome.title</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>There are no outcomes for this group</p>
+                                }
+
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+}
+
+
+@*keeping the below code because it might be useful someday*@
+
+<!--<script type="text/javascript">
+                  //document.getElementById().addEventListener("click", myFunction);
+        function myFunc(id) {
+
+            doModal('test','test');
+        }
+
+        function doModal(test) {
+        html = '<div id="dynamicModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">';
+        html += '<div class="modal-dialog">';
+        html += '<div class="modal-content">';
+        html += '<div class="modal-header">';
+        html += '<h5 class="modal-title" id="exampleModalLabel">Outcomes</h5>';
+        html += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+        html += '</div>';
+          html += '<div class="modal-body">';-->
+
+       @*//html += '<p>' + @Model.Outcomes[0].outcome.title +'</p>';*@
+        <!--<!--<!--html += '<p>'+'test</p>';
+        html += '</div>';
+        html += '<div class="modal-footer">';
+        html += '<span class="btn btn-primary" data-dismiss="modal">Close</span>';
+        html += '</div>';  // content
+        html += '</div>';  // dialog
+        html += '</div>';  // footer
+        html += '</div>';  // modalWindow
+        $('body').append(html);
+        $("#dynamicModal").modal();
+        $("#dynamicModal").modal('show');
+
+        $('#dynamicModal').on('hidden.bs.modal', function (e) {
+            $(this).remove();
+        });
+    }
+</script>-->
+
+

@@ -1,0 +1,300 @@
+﻿@page
+@model OutcomeManagementSystem.Pages.CanvasAPI.testModel
+@{
+
+}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+    <script src="bs_dialogs.js"></script>
+
+</head>
+<body class="m-2">
+
+    <button id="ok_cancel" class="btn btn-secondary m-2">ok_cancel</button>
+    @*<button id="yes_no" class="btn btn-secondary m-2">yes_no</button>
+    <button id="ok" class="btn btn-secondary m-2">ok</button>
+    <button id="custom" class="btn btn-secondary m-2">custom</button>
+    <button id="form" class="btn btn-secondary m-2">form</button>
+    <button id="form_loop" class="btn btn-secondary m-2">form_loop</button>*@
+
+    <script>
+
+        class BsDialogs {
+            get _options_default() {
+                return {
+                    centered: true,
+                    backdrop: 'static',
+                    keyboard: true,
+                    focus: true,
+                    close: true,
+                    size: '',
+                    fullscreen: null,
+                    scrollable: false
+                }
+            }
+
+            constructor(options = {}) {
+                const _this = this
+                //this._recalculate_z_index()
+                this._options = Object.assign({}, this._options_default, options)
+                this._bs_options = {
+                    backdrop: this._options.backdrop,
+                    keyboard: this._options.keyboard,
+                    focus: this._options.focus
+                }
+                this._modal_div = document.createElement('div')
+                this._modal_div.className = 'modal fade'
+                this._modal_div.tabIndex = -1
+                this._modal_div.insertAdjacentHTML('beforeend', this._modal_html())
+                this._modal_header = this._modal_div.querySelector('h5.modal-title')
+                this._modal_body = this._modal_div.querySelector('div.modal-body')
+                this._modal_footer = this._modal_div.querySelector('div.modal-footer')
+                this._modal_close = this._modal_div.querySelector('button.btn-close')
+                document.body.appendChild(this._modal_div)
+            }
+
+            _modal_html() {
+                let cls = ['modal-dialog']
+                if (this._options.centered) {
+                    cls.push('modal-dialog-centered')
+                }
+                if (this._options.size !== '') {
+                    cls.push('modal-' + this._options.size)
+                }
+                if (this._options.fullscreen !== null) {
+                    if (this._options.fullscreen === '') {
+                        cls.push('modal-fullscreen')
+                    } else {
+                        cls.push('modal-fullscreen-' + this._options.fullscreen)
+                    }
+                }
+                if (this._options.scrollable) {
+                    cls.push('modal-dialog-scrollable')
+                }
+
+
+                let close_btn = `<button type="button" class="btn-close" data-ret="" aria-label="Close"></button>`
+                if (!this._options.close) {
+                    close_btn = ''
+                }
+
+                return `<div class="${cls.join(' ')}">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>${close_btn}
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>`
+            }
+
+            _serialize_form(frm) {
+                let ret_dict = {}
+                const selectors = frm.querySelectorAll("input")
+                selectors.forEach(function (selector) {
+                    if (selector.dataset.name) {
+                        if (selector.type === 'checkbox') {
+                            if (selector.checked && selector.name) {
+                                try {
+                                    ret_dict[selector.name].push(selector.dataset.name)
+                                } catch {
+                                    ret_dict[selector.name] = []
+                                    ret_dict[selector.name].push(selector.dataset.name)
+                                }
+                            }
+                        } else {
+                            ret_dict[selector.dataset.name] = selector.value
+                        }
+                    } else {
+                        if (selector.type === 'radio') {
+                            if (selector.checked && selector.name) {
+                                ret_dict[selector.name] = selector.value
+                            }
+                        }
+                    }
+
+                });
+                return ret_dict
+            }
+
+
+            custom(header, body, buttons = []) {
+                const _this = this
+                this._modal_header.innerHTML = header
+                this._modal_body.innerHTML = body
+                for (let button of buttons) {
+                    let btn_el = document.createElement('button')
+                    btn_el.className = 'btn ' + button[1]
+                    btn_el.textContent = button[0]
+                    btn_el.dataset.ret = button[2]
+                    this._modal_footer.appendChild(btn_el)
+                }
+                this._modal_bs = new bootstrap.Modal(this._modal_div, _this._bs_options)
+                this._modal_bs.show()
+                return new Promise((resolve, reject) => {
+                    for (let button of _this._modal_div.querySelectorAll('button[data-ret]')) {
+                        button.addEventListener("click", function (e) {
+                            _this.close()
+                            if (e.target.dataset.ret === '') {
+                                e.target.dataset.ret = undefined
+                            }
+                            resolve(e.target.dataset.ret)
+                        })
+                    }
+                    _this._modal_div.addEventListener('hidden.bs.modal', function () {
+                        resolve(undefined)
+                        _this.close()
+                    })
+                })
+            }
+
+            async ok_cancel(header, body) {
+                return await this.custom(header, body, [['Cancel', 'btn-secondary', 'cancel'], ['Ok', 'btn-primary', 'ok']])
+            }
+
+            async yes_no(header, body) {
+                return await this.custom(header, body, [['No', 'btn-secondary', 'no'], ['Yes', 'btn-primary', 'yes']])
+            }
+
+            async ok(header, body) {
+                return await this.custom(header, body, [['Ok', 'btn-primary', 'ok']])
+            }
+
+            form(header, ok_btn_text, form) {
+                const _this = this
+                this._modal_header.innerHTML = header
+                this._modal_body.innerHTML = form
+                this._modal_bs = new bootstrap.Modal(this._modal_div, this._bs_options)
+                this._form_el = this._modal_body.querySelector('form')
+                //
+                let submit_btn = document.createElement('button')
+                submit_btn.hidden = true
+                submit_btn.type = 'submit'
+                this._form_el.appendChild(submit_btn)
+                //
+                let ok_btn = document.createElement('button')
+                ok_btn.className = 'btn btn-primary'
+                ok_btn.textContent = ok_btn_text
+                ok_btn.onclick = function () {
+                    submit_btn.click()
+                }
+                this._modal_footer.appendChild(ok_btn)
+                //
+                this._modal_bs.show()
+
+            }
+
+            async onsubmit(loop = false) {
+                const _this = this
+                return new Promise((resolve, reject) => {
+                    _this._form_el.onsubmit = function (e) {
+                        e.preventDefault()
+                        resolve(_this._serialize_form(_this._form_el))
+                        if (!loop) {
+                            _this.close()
+                        }
+                    }
+
+                    _this._modal_close.onclick = function () {
+                        resolve(undefined)
+                        _this.close()
+                    }
+
+                    _this._modal_div.addEventListener('hidden.bs.modal', function () {
+                        resolve(undefined)
+                        _this.close()
+                    })
+                })
+            }
+
+            close() {
+                try {
+                    this._modal_bs.hide()
+                    this._modal_div.remove()
+                } catch {
+                }
+            }
+
+            set append_body(el) {
+                this._modal_body.appendChild(el)
+            }
+        }
+
+
+
+
+
+
+        window.onload = async function () {
+            document.getElementById('ok_cancel').onclick = async function () {
+                let ret = await new BsDialogs({ backdrop: true }).ok_cancel('header', 'body')
+                console.log(ret)
+            }
+
+            document.getElementById('yes_no').onclick = async function () {
+                let ret = await new BsDialogs().yes_no('header', 'body')
+                console.log(ret)
+            }
+
+            document.getElementById('ok').onclick = async function () {
+                let ret = await new BsDialogs().ok('header', 'body')
+                console.log(ret)
+            }
+
+            document.getElementById('custom').onclick = async function () {
+                let ret = await new BsDialogs().custom('header', 'body',
+                    [
+                        ['Show', 'btn-warning', 'show'],
+                        ['Abort', 'btn-secondary', 'abort'],
+                        ['Yes', 'btn-primary', 'yes']
+                    ]
+                )
+                console.log(ret)
+            }
+
+            let frm = `<form>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" data-name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div>
+</form>`
+
+            document.getElementById('form').onclick = async function () {
+                let dlg = new BsDialogs({ backdrop: true })
+                dlg.form('header', 'Send', frm)
+                let ret = await dlg.onsubmit()
+                console.log(ret)
+            }
+
+            document.getElementById('form_loop').onclick = async function () {
+                let dlg = new BsDialogs()
+                dlg.form('header', 'Send', frm)
+
+                while (true) {
+                    let ret = await dlg.onsubmit(true)
+                    if (ret === undefined) { // if close
+                        break
+                    }
+                    if (ret['email'].slice(-4) === '.com') {
+                        // we carry out the necessary actions
+                        break
+                    } else {
+                        await new BsDialogs().ok('Enter the correct value', 'Only .com domain!')
+                    }
+                }
+                dlg.close()
+            }
+        }
+    </script>
+</body>
+
