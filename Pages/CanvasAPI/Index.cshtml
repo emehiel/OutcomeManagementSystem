@@ -8,15 +8,15 @@
 
 @{ if (Model.SubOutcomeGrp != null)
     {
-        foreach (var item in Model.SubOutcomeGrp)
+        foreach (var outcomeGrp in Model.SubOutcomeGrp)
         {
 
             <div class="card">
                 <div class="card-body">
-                    <a asp-page="./Index" asp-route-id="@item.id" type="button" class="btn btn-primary">@item.title + </a>
+                    <a asp-page="./Index" asp-route-id="@outcomeGrp.id" type="button" class="btn btn-primary">@outcomeGrp.title + </a>
                     @* <a type="button" href="#" class="btn btn-primary" onclick="myFunc();">Outcomes</a>*@
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@item.title.Replace(" ","")" runat="server">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@outcomeGrp.title.Replace(" ","")" runat="server">
                         Outcomes
                     </button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newoutcome" runat="server">
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="@item.title.Replace(" ","")" tabindex="-1">
+            <div class="modal fade" id="@outcomeGrp.title.Replace(" ","")" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -34,20 +34,26 @@
                         </div>
                         <div class="modal-body">
                             @{
-                                var subgs = Model.subgroup.GetSubGroupOutcomes(@item.id);
+                                var subgs = Model.subgroup.GetSubGroupOutcomes(outcomeGrp.id);
                                 if (subgs.Count != 0)
                                 {
                                     foreach (var OutItem in subgs)
                                     {
                                         <div class="card">
-                                            <div class="card-body">
-                                                <p>@OutItem.outcome.title</p>
+                                                                        <div class="card-body">
+                                                                            <p>@OutItem.outcome.title</p>
+                                                                            
+                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@OutItem.outcome.title.Replace(" ","")" runat="server">
+                                                                                    Update Outcome
+                                                                                </button>
 
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@OutItem.outcome.title.Replace(" ","")" runat="server">
-                                                    Update Outcome
-                                                </button>
-
-                                            </div>
+                                                                                <form method="post">
+                                                                                    <input asp-for="Delete.ID" value="@OutItem.outcome.id" class="form-control" type="text" hidden="hidden" placeholder="" aria-label="default input example">
+                                                                                    <input asp-for="Delete.GrpID" value="@outcomeGrp.id" class="form-control" type="text" hidden="hidden" placeholder="" aria-label="default input example">
+                                                                                    <input type="submit" value="Delete" class="btn btn-primary" />
+                                                                                </form>
+                                                                            
+                                                                        </div>
                                         </div>
                                         <form method="post">
                                             <div class="modal fade" id="@OutItem.outcome.title.Replace(" ","")" tabindex="-1">
@@ -78,6 +84,8 @@
                                                 </div>
                                             </div>
                                         </form>
+
+
                                         <script type="text/javascript">
                                             $('#@OutItem.outcome.title.Replace(" ","")').css("margin-left", $(window).width() - $('.modal-content').width());
                                         </script>
@@ -110,7 +118,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input asp-for="Input.InputID" class="form-control" type="text" hidden="hidden" placeholder="Title" value="@item.id" aria-label="default input example">
+                            <input asp-for="Input.InputID" class="form-control" type="text" hidden="hidden" placeholder="Title" value="@outcomeGrp.id" aria-label="default input example">
                             <input asp-for="Input.Title" class="form-control" type="text" placeholder="Title" aria-label="default input example">
                             <input asp-for="Input.DisplayName" class="form-control" type="text" placeholder="Display Name" aria-label="default input example">
                             <input asp-for="Input.Description" class="form-control" type="text" placeholder="Description" aria-label="default input example">

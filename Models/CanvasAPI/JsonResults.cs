@@ -79,6 +79,12 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             public string CalcType { get; set; }
             public int InputID { get; set; }
         }
+        public class OutcomeDelete
+        {
+
+            public int ID { get; set; }
+            public int GrpID { get; set; }
+        }
 
     }
     }

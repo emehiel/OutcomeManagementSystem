@@ -21,6 +21,8 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
         public JsonResults.OutcomeInput Input { get; set; }
         [BindProperty]
         public JsonResults.OutcomeMod Mod { get; set; }
+        [BindProperty]
+        public JsonResults.OutcomeDelete Delete { get; set; }
         public List<JsonResults.OutcomeArray> AccOutcome { get; set; }
 
         public List<JsonResults.OutcomeArray> SubOutcomeGrp { get; set; }
@@ -96,7 +98,11 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
             //    Outcomes = subgroup.GetSubGroupOutcomes(id.Value);
             //}
 
-            if (Mod != null)
+            if (Delete != null)
+            {
+                var test = subgroup.DeleteOutcome(Delete.ID,Delete.GrpID);
+            }
+                if (Mod.Title != null)
             {
                 JObject jObjectbodymod = new JObject();
                 jObjectbodymod.Add("title", Mod.Title);
@@ -106,7 +112,7 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
 
                 var test = subgroup.PutOutcome(Mod.InputID, jObjectbodymod);
             }
-            if(Input != null) { 
+            if(Input.Title != null) { 
             JObject jObjectbody = new JObject();
             jObjectbody.Add("title", Input.Title);
             jObjectbody.Add("display_name", Input.DisplayName);

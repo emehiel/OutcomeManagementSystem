@@ -71,10 +71,10 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             request.RequestFormat = DataFormat.Json;
             return restClient.Execute(request);
         }
-        public IRestResponse DeleteOutcome(string outcomeID)
+        public IRestResponse DeleteOutcome(int outcomeID, int outcomegroupID)
         {
-
-            string url = domaininfo + $"/outcomes/" + outcomeID + "?access_token=" + token;
+            
+            string url = domaininfo + $"/accounts/1/outcome_groups/"+outcomegroupID+"/outcomes/" + outcomeID + "?access_token=" + token;
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.DELETE);
 
