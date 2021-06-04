@@ -21,8 +21,10 @@ namespace OutcomeManagementSystem.Pages.FlowChart
         }
         public int CourseID { get; set; }
         public CourseIndexData CourseData { get; set; }
+        public IEnumerable<string> Concentrations { get; set; }
+        public string SelectedConcentration { get; set; }
 
-        public async Task OnGetAsync(int? id)
+        public async Task OnGetAsync(int? id, string concentration)
         {
             CourseData = new CourseIndexData();
             CourseData.Courses = await _context.Courses
@@ -33,6 +35,12 @@ namespace OutcomeManagementSystem.Pages.FlowChart
                 .AsNoTracking()
                 .ToListAsync();
 
+            Concentrations = CourseData.Courses.Select(c => c.Concentration).Distinct();
+            if (concentration != null)
+            {
+                SelectedConcentration = concentration;
+                CourseData.Courses = CourseData.Courses.Where(c => c.Concentration == concentration || c.Concentration == "" || c.Concentration == null);
+            }
             if (id != null)
             {
                 CourseID = id.Value;

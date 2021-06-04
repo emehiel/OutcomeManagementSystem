@@ -21,7 +21,7 @@ namespace OutcomeManagementSystem.Data
         public DbSet<OutcomeManagementSystem.Models.StudentOutcome> StudentOutcomes { get; set; }
         public DbSet<OutcomeManagementSystem.Models.PreReq> PreReqs { get; set; }
         public DbSet<OutcomeManagementSystem.Models.CourseCoordinator> CourseCoordinators { get; set; }
-
+        public DbSet<OutcomeManagementSystem.Models.Assessment> Assessments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>()
@@ -41,7 +41,7 @@ namespace OutcomeManagementSystem.Data
             modelBuilder.Entity<Course>().ToTable("Course");
         }
 
-        public DbSet<OutcomeManagementSystem.Models.Assessment> Assessments { get; set; }
+
 
     }
 }

@@ -23,7 +23,7 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
         public List<JsonResults.OutcomeArray> SubOutcomeGrp { get; set; }
         public List<JsonResults.Root> Outcomes { get; set; }
         public APIFunctions subgroup = new APIFunctions();
-       public DataTable dt = new DataTable();
+        public DataTable dt = new DataTable();
         public void OnGet(int? id)
         {
 

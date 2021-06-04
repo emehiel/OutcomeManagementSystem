@@ -16,6 +16,15 @@ using System.Globalization;
 
 namespace OutcomeManagementSystem.Models
 {
+    public class CourseHelper
+    {
+        public string Department { get; set; }
+        public string Number { get; set; }
+        public string Type { get; set; }
+        public string Year { get; set; }
+        public string Quarter { get; set; }
+        public string Concentration { get; set; }
+    }
     public class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
@@ -185,6 +194,26 @@ namespace OutcomeManagementSystem.Models
                     course.Quarter = QuarterType.unknown;
                     courses.Add(course);
                 }
+
+                var reader = new StreamReader(@"Aero Curriculum Details.csv");
+                var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+                csvReader.Read();
+                csvReader.ReadHeader();
+
+                while(csvReader.Read())
+                {
+                    var record = csvReader.GetRecord<CourseHelper>();
+                    var course = courses.Find(c => c.Department == record.Department && c.Number == Convert.ToInt32(record.Number));
+                    if (course != null)
+                    {
+                        course.Quarter = (QuarterType)Enum.Parse(typeof(QuarterType), record.Quarter);
+                        course.Year = (YearType)Enum.Parse(typeof(YearType), record.Year);
+                        course.Type = (Type)Enum.Parse(typeof(Type), record.Type);
+                        course.Concentration = record.Concentration;
+                    }
+                }
+
                 context.Courses.AddRange(courses);
                 context.SaveChanges();
                 

@@ -48,7 +48,7 @@ namespace OutcomeManagementSystem.Models
         [Display(Name = "Concentration")]
         Concentration,
         [Display(Name = "General Education")]
-        GenerlEducation
+        GeneralEducation
     }
     public class Course
     {
@@ -64,7 +64,7 @@ namespace OutcomeManagementSystem.Models
         [Required]
         public YearType Year { get; set; }
         public QuarterType Quarter { get; set; }
-        //public Type Type { get; set; }
+        public Type Type { get; set; }
 
         public CourseCoordinator CourseCoordinator { get; set; }
         public ICollection<PreReq> PreReqs { get; set; }
