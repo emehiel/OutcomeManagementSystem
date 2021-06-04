@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json.Linq;
 using OutcomeManagementSystem.Models.CanvasAPI;
 using RestSharp;
 
@@ -16,14 +17,19 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
     {
 
         // some logic, but probably not the right way to do this 
-
-
+        [BindProperty]
+        public JsonResults.OutcomeInput Input { get; set; }
+        [BindProperty]
+        public JsonResults.OutcomeMod Mod { get; set; }
         public List<JsonResults.OutcomeArray> AccOutcome { get; set; }
 
         public List<JsonResults.OutcomeArray> SubOutcomeGrp { get; set; }
         public List<JsonResults.Root> Outcomes { get; set; }
         public APIFunctions subgroup = new APIFunctions();
-       public DataTable dt = new DataTable();
+        public DataTable dt = new DataTable();
+       
+        
+        
         public void OnGet(int? id)
         {
 
@@ -33,6 +39,7 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
                 SubOutcomeGrp = subgroup.GetAccountOutcomeSubGroup(id.Value);
                 Outcomes= subgroup.GetSubGroupOutcomes(id.Value);
             }
+            //txtTitle.value
             //var button = _Pages_CanvasAPI_Index.getElementById('MyForm');
             //var bsButton = new bootstrap.Button(button);
 
@@ -79,6 +86,38 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
 
         }
         
+        public void OnPost()
+        {
+            AccOutcome = subgroup.GetAccountOutcomeGroup();
+
+            //if (id != null)
+            //{
+            //    SubOutcomeGrp = subgroup.GetAccountOutcomeSubGroup(id.Value);
+            //    Outcomes = subgroup.GetSubGroupOutcomes(id.Value);
+            //}
+
+            if (Mod != null)
+            {
+                JObject jObjectbodymod = new JObject();
+                jObjectbodymod.Add("title", Mod.Title);
+                jObjectbodymod.Add("display_name", Mod.DisplayName);
+                //jObjectbodymod.Add("description", Mod.Description);
+                //jObjectbodymod.Add("calculation_method", Mod.CalcType);
+
+                var test = subgroup.PutOutcome(Mod.InputID, jObjectbodymod);
+            }
+            if(Input != null) { 
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("title", Input.Title);
+            jObjectbody.Add("display_name", Input.DisplayName);
+            jObjectbody.Add("description", Input.Description);
+            jObjectbody.Add("calculation_method", Input.CalcType);
+
+            var test2 = subgroup.PostOutcome(Input.InputID, jObjectbody);
+            }
+
+
+        }
 
         //public int getID(string title)
         //{
@@ -93,7 +132,7 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
 
         //    return 0;
         //}
-        
-        
+
+
     }
 }

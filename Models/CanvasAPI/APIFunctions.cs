@@ -32,24 +32,25 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
 
             return restClient.Execute(request);
         }
-        public IRestResponse PutOutcome(string outcomeID)
+        public IRestResponse PutOutcome(int outcomeID, JObject Jbody)
         {
 
             //string url = domaininfo + $"/outcomes/953?access_token={token}";
             string url = domaininfo + $"/outcomes/" + outcomeID + "?access_token=" + token;
 
-            JObject jObjectbody = new JObject();
+            //JObject jObjectbody = new JObject();
             //jObjectbody.Add("outcome_id", 12345);
             //jObjectbody.Add("title", "Test Outcome");
-            jObjectbody.Add("description", "<p>This is a test to see if I can add an outcome via API</p>");
+            //jObjectbody.Add("description", "<p>This is a test to see if I can add an outcome via API</p>");
 
 
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.PUT);
-
+            request.AddParameter("application/json", Jbody, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
             return restClient.Execute(request);
         }
-        public IRestResponse PostOutcome(string outcomegroupID, JObject Jbody)
+        public IRestResponse PostOutcome(int outcomegroupID, JObject Jbody)
         {
 
             string domaininfo = $"https://canvas.calpoly.edu/api/v1";
@@ -64,7 +65,8 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
 
 
             var restClient = new RestClient(url);
-            var request = new RestRequest(Method.PUT);
+            var request = new RestRequest(Method.POST);
+            
             request.AddParameter("application/json", Jbody, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             return restClient.Execute(request);
