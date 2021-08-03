@@ -17,10 +17,13 @@
                 @Html.DisplayNameFor(model => model.CLO[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CLO[0].SO_KPIID)
+                @Html.DisplayNameFor(model => model.CLO[0].SO_KPI.StudentOutcome.SONumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CLO[0].ProgramOutcomeID)
+                @Html.DisplayNameFor(model => model.CLO[0].SO_KPI.KPINumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CLO[0].ProgramOutcome.PONumber)
             </th>
             <th></th>
         </tr>
@@ -32,10 +35,13 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SO_KPIID)
+                @Html.DisplayFor(modelItem => item.SO_KPI.StudentOutcome.SONumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProgramOutcomeID)
+                @Html.DisplayFor(modelItem => item.SO_KPI.KPINumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramOutcome.PONumber)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

@@ -2,13 +2,13 @@
 @model OutcomeManagementSystem.Pages.StudentOutcomes.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Student Outcome Details";
 }
 
-<h1>Details</h1>
+<h1>Student Outcome Details</h1>
 
 <div>
-    <h4>StudentOutcome</h4>
+    <h4>ABET Student Outcome @Model.StudentOutcome.SONumber</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -29,18 +29,14 @@
         <dd class="col-sm-10">
             <table class="table">
                 <tr>
-                    <th>ID</th>
-                    <th>Description</th>
+                    <th>@Html.DisplayNameFor(model => model.StudentOutcome.SO_KPIs.First().KPINumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.StudentOutcome.SO_KPIs.First().Description)</th>
                 </tr>
                 @foreach (var item in Model.StudentOutcome.SO_KPIs)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.KPINumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
                     </tr>
                 }
             </table>

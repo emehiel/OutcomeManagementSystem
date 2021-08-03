@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.ProgramOutcome[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProgramOutcome[0].ShortName)
+                @Html.DisplayNameFor(model => model.ProgramOutcome[0].Concentration)
             </th>
             <th></th>
         </tr>
@@ -29,7 +29,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ShortName)
+                @Html.DisplayFor(modelItem => item.Concentration)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

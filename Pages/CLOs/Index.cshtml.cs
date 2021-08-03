@@ -23,7 +23,10 @@ namespace OutcomeManagementSystem.Pages.CLOs
 
         public async Task OnGetAsync()
         {
-            CLO = await _context.CLOs.ToListAsync();
+            CLO = await _context.CLOs
+                .Include(i => i.SO_KPI)
+                .ThenInclude(i => i.StudentOutcome)
+                .Include(i => i.ProgramOutcome).ToListAsync();
         }
     }
 }

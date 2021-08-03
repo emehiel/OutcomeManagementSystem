@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.SO_KPI[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SO_KPI[0].StudentOutcomeID)
+                @Html.DisplayNameFor(model => model.SO_KPI[0].KPINumber)
             </th>
             <th></th>
         </tr>
@@ -29,7 +29,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StudentOutcomeID)
+                @Html.DisplayFor(modelItem => item.KPINumber)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

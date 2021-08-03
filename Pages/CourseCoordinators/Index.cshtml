@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Course Coordinators for the @Model.CourseCoordinators.First().Courses.First().Department Department</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,16 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CourseCoordinator[0].FirstName)
+                @Html.DisplayNameFor(model => model.CourseCoordinators[0].FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CourseCoordinator[0].LastName)
+                @Html.DisplayNameFor(model => model.CourseCoordinators[0].LastName)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.CourseCoordinator) {
+@foreach (var item in Model.CourseCoordinators) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)

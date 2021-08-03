@@ -38,6 +38,7 @@ namespace OutcomeManagementSystem.Pages.Courses
                 .ThenInclude(clo => clo.ProgramOutcome)
                 .Include(c => c.CLOs)
                 .ThenInclude(sokpi => sokpi.SO_KPI)
+                .ThenInclude(so => so.StudentOutcome)
                 .Include(s => s.PreReqs)
                 .ThenInclude(pr => pr.ReqCourse)
                 .Include(c => c.CourseCoordinator)

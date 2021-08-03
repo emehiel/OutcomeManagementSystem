@@ -2,14 +2,13 @@
 @model OutcomeManagementSystem.Pages.SO_KPIs.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "SO KPI Details";
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>SO_KPI</h4>
-    <hr />
+    <h5>Information regarding this KPI and the associated ABET Student Outcome</h5>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SO_KPI.Description)
@@ -18,23 +17,23 @@
             @Html.DisplayFor(model => model.SO_KPI.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SO_KPI.StudentOutcomeID)
+            @Html.DisplayNameFor(model => model.SO_KPI.KPINumber)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SO_KPI.StudentOutcomeID)
+            @Html.DisplayFor(model => model.SO_KPI.KPINumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SO_KPI.StudentOutcome)
+            Associated @Html.DisplayNameFor(model => model.SO_KPI.StudentOutcome)
         </dt>
         <dd class="col-sm-10">
             <table class="table">
                 <tr>
-                    <th>ABET SO #</th>
-                    <th>Description</th>
+                    <th>@Html.DisplayNameFor(model => model.SO_KPI.StudentOutcome.SONumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.SO_KPI.StudentOutcome.Description)</th>
                 </tr>
                     <tr>
                         <td>
-                            @Html.DisplayFor(model => model.SO_KPI.StudentOutcome.ID)
+                            @Html.DisplayFor(model => model.SO_KPI.StudentOutcome.SONumber)
                         </td>
                         <td>
                             @Html.DisplayFor(model => model.SO_KPI.StudentOutcome.Description)

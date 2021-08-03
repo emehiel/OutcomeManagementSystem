@@ -66,6 +66,7 @@ namespace OutcomeManagementSystem.Models
         public QuarterType Quarter { get; set; }
         public Type Type { get; set; }
 
+        public int CourseCoordinatorID { get; set; }
         public CourseCoordinator CourseCoordinator { get; set; }
         public ICollection<PreReq> PreReqs { get; set; }
         public ICollection<CLO> CLOs { get; set; }

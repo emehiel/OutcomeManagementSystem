@@ -19,7 +19,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             public bool can_edit { get; set; }
         }
 
-        public class OutcomeArray
+        public class OutcomeGroup
         {
             public int id { get; set; }
             public string title { get; set; }
@@ -44,12 +44,14 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             public object vendor_guid { get; set; }
             public string display_name { get; set; }
             public string title { get; set; }
+            public string description { get; set; }
+            public string calculation_method { get; set; }
             public string url { get; set; }
             public bool can_edit { get; set; }
             public bool has_updateable_rubrics { get; set; }
         }
 
-        public class Root
+        public class OutcomeWrapper
         {
             public int context_id { get; set; }
             public string context_type { get; set; }
@@ -61,6 +63,30 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             public bool assessed { get; set; }
         }
 
+        public class OutcomeInput
+        {
+            public string Title { get; set; }
+            public string DisplayName { get; set; }
+            public string Description { get; set; }
+            public string CalcType { get; set; }
+            public int InputID { get; set; }
+        }
+        public class OutcomeMod
+        {
+            public string Title { get; set; }
+            public string DisplayName { get; set; }
+            public string Description { get; set; }
+            public string CalcType { get; set; }
+            public int InputID { get; set; }
+        }
+        public class OutcomeDelete
+        {
+
+            public int ID { get; set; }
+            public int GrpID { get; set; }
+        }
+
+    }
     }
 
-}
+

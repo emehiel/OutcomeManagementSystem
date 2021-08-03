@@ -150,7 +150,7 @@ namespace OutcomeManagementSystem.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShortName")
+                    b.Property<string>("Concentration")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -184,7 +184,7 @@ namespace OutcomeManagementSystem.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShortName")
+                    b.Property<string>("Concentration")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

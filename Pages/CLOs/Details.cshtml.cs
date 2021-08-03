@@ -30,7 +30,9 @@ namespace OutcomeManagementSystem.Pages.CLOs
 
             CLO = await _context.CLOs
                 .Include(kpis => kpis.SO_KPI)
+                .ThenInclude(so => so.StudentOutcome)
                 .Include(po => po.ProgramOutcome)
+                .Include(c => c.Course)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (CLO == null)

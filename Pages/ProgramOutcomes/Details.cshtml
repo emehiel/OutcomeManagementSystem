@@ -8,7 +8,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>ProgramOutcome</h4>
+    <h4>Program Outcome @Model.ProgramOutcome.PONumber</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -18,10 +18,10 @@
             @Html.DisplayFor(model => model.ProgramOutcome.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProgramOutcome.ShortName)
+            @Html.DisplayNameFor(model => model.ProgramOutcome.Concentration)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProgramOutcome.ShortName)
+            @Html.DisplayFor(model => model.ProgramOutcome.Concentration)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ProgramOutcome.CLOs)
@@ -29,18 +29,16 @@
         <dd class="col-sm-10">
             <table class="table">
                 <tr>
-                    <th>ID</th>
-                    <th>Description</th>
+                    <th>@Html.DisplayNameFor(model => model.ProgramOutcome.CLOs.First().Course.Department)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProgramOutcome.CLOs.First().Course.Number)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProgramOutcome.CLOs.First().Description)</th>
                 </tr>
                 @foreach (var item in Model.ProgramOutcome.CLOs)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Course.Department)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Course.Number)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
                     </tr>
                 }
             </table>

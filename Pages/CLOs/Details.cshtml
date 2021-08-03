@@ -8,7 +8,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>CLO</h4>
+    <h4>Course Learning Outcome Information for @Model.CLO.Course.Department @Model.CLO.Course.Number </h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -18,10 +18,16 @@
             @Html.DisplayFor(model => model.CLO.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CLO.SO_KPIID)
+            @Html.DisplayNameFor(model => model.CLO.MasteryLevel)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CLO.SO_KPIID)
+            @Html.DisplayFor(model => model.CLO.MasteryLevel)
+        </dd>
+        <dt class="col-sm-2">
+            CLO Code
+        </dt>
+        <dd class="col-sm-10">
+            @Model.CLO.CLOCode
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CLO.SO_KPI)
@@ -29,12 +35,12 @@
         <dd class="col-sm-10">
             <table class="table">
                 <tr>
-                    <th>KPI ID</th>
-                    <th>KPI Description</th>
+                    <th>@Html.DisplayNameFor(model => model.CLO.SO_KPI.KPINumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.CLO.SO_KPI.Description)</th>
                 </tr>
                 <tr>
                     <td>
-                        @Html.DisplayFor(model => model.CLO.SO_KPI.ID)
+                        @Html.DisplayFor(model => model.CLO.SO_KPI.KPINumber)
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.CLO.SO_KPI.Description)
@@ -43,27 +49,24 @@
             </table>
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CLO.ProgramOutcomeID)
+            @Html.DisplayNameFor(model => model.CLO.ProgramOutcome)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CLO.ProgramOutcomeID)
-        </dd>
         <dd class="col-sm-10">
             <table class="table">
                 <tr>
-                    <th>Program Outcome ID</th>
-                    <th>Program Outcome Short Name</th>
-                    <th>Program Outcome Description</th>
+                    <th>@Html.DisplayNameFor(model => model.CLO.ProgramOutcome.PONumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.CLO.ProgramOutcome.Description)</th>
+                    <th>@Html.DisplayNameFor(model => model.CLO.ProgramOutcome.Concentration)</th>
                 </tr>
                 <tr>
                     <td>
-                        @Html.DisplayFor(model => model.CLO.ProgramOutcome.ID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.CLO.ProgramOutcome.ShortName)
+                        @Html.DisplayFor(model => model.CLO.ProgramOutcome.PONumber)
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.CLO.ProgramOutcome.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CLO.ProgramOutcome.Concentration)
                     </td>
                 </tr>
             </table>

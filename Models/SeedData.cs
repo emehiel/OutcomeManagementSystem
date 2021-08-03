@@ -57,9 +57,7 @@ namespace OutcomeManagementSystem.Models
                 context.SO_KPIs.AddRange(KPIRecords);
                 context.SaveChanges();
 
-                List<Course> courses = LoadCatalogFromHTLM(context);
-                //context.Courses.AddRange(courses);
-                //context.SaveChanges();
+
 
                 reader = new StreamReader(@"Aero CourseCoordinators.csv");
                 csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
@@ -76,14 +74,16 @@ namespace OutcomeManagementSystem.Models
                         LastName = csvReader.GetField("LastName"),
                         //ID = csvReader.GetField<Int32>("ID")
                     };
-                    var courseDept = csvReader.GetField("Dept");
-                    var courseNumber = csvReader.GetField<Int32>("Number");
-                    record.CourseID = context.Courses.FirstOrDefault(c => c.Department == courseDept && c.Number == courseNumber).ID;
+                    //var courseDept = csvReader.GetField("Dept");
+                    //var courseNumber = csvReader.GetField<Int32>("Number");
+                    //record.CourseID = context.Courses.FirstOrDefault(c => c.Department == courseDept && c.Number == courseNumber).ID;
 
                     records.Add(record);
                 }
                 context.CourseCoordinators.AddRange(records);
                 context.SaveChanges();
+
+                List<Course> courses = LoadCatalogFromHTLM(context);
 
                 reader = new StreamReader(@"Aero CLOs.csv");
                 csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
@@ -214,6 +214,35 @@ namespace OutcomeManagementSystem.Models
                     }
                 }
 
+                reader = new StreamReader(@"Aero CourseAssignments.csv");
+                csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
+                //var CourseCoordRecords = csvReader.GetRecords<CourseCoordinator>().ToList();
+
+                csvReader.Read();
+                csvReader.ReadHeader();
+                while (csvReader.Read())
+                {
+                    var dept = csvReader.GetField("Dept");
+                    var number = Convert.ToInt32(csvReader.GetField("Number"));
+
+                    Course course = courses.FirstOrDefault(c => c.Department.ToLower() == dept.ToLower() && c.Number == number);
+                    if (course != null)
+                    {
+                        var firstName = csvReader.GetField("FirstName");
+                        var lastName = csvReader.GetField("LastName");
+
+                        CourseCoordinator cc = context.CourseCoordinators.FirstOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
+                        course.CourseCoordinatorID = cc.ID;
+                    }
+                    else
+                        course.CourseCoordinatorID = context.CourseCoordinators.FirstOrDefault(c => c.FirstName == "ABET" && c.LastName == "ABET").ID;
+                }
+                foreach(var course in courses)
+                {
+                    if (course.CourseCoordinatorID == 0)
+                        course.CourseCoordinatorID = context.CourseCoordinators.FirstOrDefault(c => c.FirstName == "ABET" && c.LastName == "ABET").ID;
+                }
+
                 context.Courses.AddRange(courses);
                 context.SaveChanges();
                 
@@ -234,7 +263,7 @@ namespace OutcomeManagementSystem.Models
             }
             catch (Exception ex)
             {
-                string s = "(ex, An error occurred seeding the DB.)";
+                throw ex;
             }
         
             return courses;

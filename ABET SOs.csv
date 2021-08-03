@@ -1,8 +1,9 @@
 ID,SO #,SO Description,SO Short Name
-1,1,"an ability to identify, formulate, and solve complex engineering problems by applying principles of engineering, science, and mathematics",Problem Solving
-2,2,"an ability to apply engineering design to produce solutions that meet specified needs with consideration of public health, safety, and welfare, as well as global, cultural, social, environmental, and economic factors",Engineering Design
-3,3,an ability to communicate effectively with a range of audiences,Communication
-4,4,"an ability to recognize ethical and professional responsibilities in engineering situations and make informed judgments, which must consider the impact of engineering solutions in global, economic, environmental, and societal contexts",Ethical and Professional Responsibility
-5,5,"an ability to function effectively on a team whose members together provide leadership, create a collaborative and inclusive environment, establish goals, plan tasks, and meet objectives",Teamwork
-6,6,"an ability to develop and conduct appropriate experimentation, analyze and interpret data, and use engineering judgment to draw conclusions",Experimentation
-7,7,"an ability to acquire and apply new knowledge as needed, using appropriate learning strategies.",Life-Long Learning
+1,0,None,None
+2,1,"an ability to identify, formulate, and solve complex engineering problems by applying principles of engineering, science, and mathematics",Problem Solving
+3,2,"an ability to apply engineering design to produce solutions that meet specified needs with consideration of public health, safety, and welfare, as well as global, cultural, social, environmental, and economic factors",Engineering Design
+4,3,an ability to communicate effectively with a range of audiences,Communication
+5,4,"an ability to recognize ethical and professional responsibilities in engineering situations and make informed judgments, which must consider the impact of engineering solutions in global, economic, environmental, and societal contexts",Ethical and Professional Responsibility
+6,5,"an ability to function effectively on a team whose members together provide leadership, create a collaborative and inclusive environment, establish goals, plan tasks, and meet objectives",Teamwork
+7,6,"an ability to develop and conduct appropriate experimentation, analyze and interpret data, and use engineering judgment to draw conclusions",Experimentation
+8,7,"an ability to acquire and apply new knowledge as needed, using appropriate learning strategies.",Life-Long Learning

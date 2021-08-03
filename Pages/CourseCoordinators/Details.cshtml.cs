@@ -28,12 +28,14 @@ namespace OutcomeManagementSystem.Pages.CourseCoordinators
                 return NotFound();
             }
 
-            CourseCoordinator = await _context.CourseCoordinators.FirstOrDefaultAsync(m => m.ID == id);
+            CourseCoordinator = await _context.CourseCoordinators
+                .Include(c => c.Courses).FirstOrDefaultAsync(m => m.ID == id);
 
             if (CourseCoordinator == null)
             {
                 return NotFound();
             }
+
             return Page();
         }
     }

@@ -4,24 +4,146 @@
     ViewData["Title"] = "Canvas-Test";
 }
 
-<a asp-page="./Index" asp-route-id="@Model.AccOutcome[0].id" type="button" class="btn btn-primary">@Model.AccOutcome[0].title</a>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a asp-page="./Index" asp-route-id="@Model.AccOutcome[0].id" type="button" class="btn btn-primary">@Model.AccOutcome[0].title</a>
+        </div>
+        <div class="col">
+            Other info
+        </div>
+    </div>
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @foreach (var link in Model.BreadCrumbs)
+                {
+                    <li class="breadcrumb-item"><a asp-page="./Index" asp-route-id="@link.Item1">@link.Item2</a></li>
+                }
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <!--List current outcome groups and outcomes-->
+            @if (Model.OutcomeGroups != null)
+            {
+                <div class="list-group">
+                    @foreach (var outcomeGrp in Model.OutcomeGroups)
+                    {
+                        var temp = "";
 
-@{ if (Model.SubOutcomeGrp != null)
+                        @if (outcomeGrp == Model.SelectedOutcomeGroup)
+                            temp = "list-group-item list-group-item-action active";
+                        else
+                            temp = "list-group-item list-group-item-action";
+                        <a asp-page="./Index" asp-route-id="@outcomeGrp.id" class=@temp>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder2" viewBox="0 0 16 16">
+                                <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z" />
+                            </svg>
+                            @outcomeGrp.title
+                        </a>
+                    }
+                </div>
+            }
+            @if (Model.GroupOutcomes != null)
+            {
+                <div class="list-group">
+                    @foreach (var outcome in Model.GroupOutcomes)
+                    {
+                        <a asp-page="./Index" asp-route-id="@outcome.outcome.id" asp-route-subGroupId="@outcome.outcome_group.id" class="list-group-item list-group-item-action">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                                <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                                <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                            </svg>
+                            @outcome.outcome.title
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+        <!--
+        <div class="col-3">
+            @if (Model.SubOutcomeGroups != null)
+            {
+                <div class="list-group">
+                    @foreach (var outcomeGrp in Model.SubOutcomeGroups)
+                    {
+                        <a asp-page="./Index" asp-route-id="@outcomeGrp.id" class="list-group-item list-group-item-action">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder2" viewBox="0 0 16 16">
+                                <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z" />
+                            </svg>
+                            @outcomeGrp.title
+                        </a>
+                    }
+                </div>
+            }
+            @if (Model.SubGroupOutcomes != null)
+            {
+                <div class="list-group">
+                    @foreach (var outcome in Model.SubGroupOutcomes)
+                    {
+                        <a asp-page="./Index" asp-route-id="@outcome.outcome.id" asp-route-subGroupId="@outcome.outcome_group.id" class="list-group-item list-group-item-action">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                                <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                                <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                            </svg>
+                            @outcome.outcome.title
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+         -->
+        <div class="col">
+            <!--Outcome Group and Outcome Information Here-->
+            @if (Model.SelectedOutcomeGroup != null)
+            {
+                <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder2" viewBox="0 0 16 16">
+                    <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z" />
+                </svg>
+                @Model.SelectedOutcomeGroup.title;</h2>
+            }
+            else if (Model.SelectedOutcome != null)
+            {
+                <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                    <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                    <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
+                @Model.SelectedOutcome.title;</h2>
+            }
+        </div>
+    </div>
+</div>
+
+@{ if (Model.OutcomeGroups != null)
     {
-        foreach (var item in Model.SubOutcomeGrp)
+        foreach (var outcomeGrp in Model.OutcomeGroups)
         {
+
             <div class="card">
                 <div class="card-body">
-                    <a asp-page="./Index" asp-route-id="@item.id" type="button" class="btn btn-primary">@item.title + </a>
+                    <a asp-page="./Index" asp-route-id="@outcomeGrp.id" type="button" class="btn btn-primary">@outcomeGrp.title + </a>
                     @* <a type="button" href="#" class="btn btn-primary" onclick="myFunc();">Outcomes</a>*@
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@item.title.Replace(" ","")" runat="server">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@outcomeGrp.title.Replace(" ","")" runat="server">
                         Outcomes
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newoutcome" runat="server">
+                        New Outcome
                     </button>
                 </div>
             </div>
 
-            <div class="modal fade" id="@item.title.Replace(" ","")" tabindex="-1">
+            <div class="modal fade" id="@outcomeGrp.title.Replace(" ","")" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -30,16 +152,71 @@
                         </div>
                         <div class="modal-body">
                             @{
-                                var subgs = Model.subgroup.GetSubGroupOutcomes(@item.id);
+                                var subgs = Model.CanvasAPI.GetSubGroupOutcomes(outcomeGrp.id);
                                 if (subgs.Count != 0)
                                 {
                                     foreach (var OutItem in subgs)
                                     {
-                                        <p>@OutItem.outcome.title</p>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <p>@OutItem.outcome.title</p>
+
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@OutItem.outcome.title.Replace(" ","")" runat="server">
+                                                    Update Outcome
+                                                </button>
+
+                                                <form method="post">
+                                                    <input asp-for="Delete.ID" value="@OutItem.outcome.id" class="form-control" type="text" hidden="hidden" placeholder="" aria-label="default input example">
+                                                    <input asp-for="Delete.GrpID" value="@outcomeGrp.id" class="form-control" type="text" hidden="hidden" placeholder="" aria-label="default input example">
+                                                    <input type="submit" value="Delete" class="btn btn-primary" />
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                        <form method="post">
+                                            <div class="modal fade" id="@OutItem.outcome.title.Replace(" ","")" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Update Outcome</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <input asp-for="Mod.InputID" value="@OutItem.outcome.id" class="form-control" type="text" hidden="hidden" placeholder="Title" aria-label="default input example">
+                                                            <input asp-for="Mod.Title" value="@OutItem.outcome.title" class="form-control" type="text" placeholder="Title" aria-label="default input example">
+                                                            <input asp-for="Mod.DisplayName" value="@OutItem.outcome.display_name" class="form-control" type="text" placeholder="Display Name" aria-label="default input example">
+                                                            @*<input asp-for="Mod.Description" value="@OutItem.outcome.description" class="form-control" type="text" placeholder="Description" aria-label="default input example">
+                                                                <input asp-for="Mod.CalcType" value="@OutItem.outcome.calculation_method" list="datalistOptions" class="form-control" placeholder="Calcuation Method" aria-label="default input example">
+                                                                <datalist id="datalistOptions">
+                                                                    <option value="decaying_average" />
+                                                                    <option value="n_mastery" />
+                                                                    <option value="latest" />
+                                                                    <option value="highest" /> $('.modal-content').width()
+                                                                </datalist>*@
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                                            @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                        <script type="text/javascript">
+                                            $('#@OutItem.outcome.title.Replace(" ","")').css("margin-left", $(window).width() - $('.modal-content').width());
+                                        </script>
+
+
                                     }
                                 }
                                 else
                                 {
+                                    @if (Model.SelectedOutcome != null)
+                                    {
+                                        Model.SelectedOutcome.ToString();
+                                    }
                                     <p>There are no outcomes for this group</p>
                                 }
 
@@ -53,10 +230,40 @@
                 </div>
             </div>
 
+
+            <form method="post">
+                <div class="modal fade" id="newoutcome" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New Outcome</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input asp-for="Input.InputID" class="form-control" type="text" hidden="hidden" placeholder="Title" value="@outcomeGrp.id" aria-label="default input example">
+                                <input asp-for="Input.Title" class="form-control" type="text" placeholder="Title" aria-label="default input example">
+                                <input asp-for="Input.DisplayName" class="form-control" type="text" placeholder="Display Name" aria-label="default input example">
+                                <input asp-for="Input.Description" class="form-control" type="text" placeholder="Description" aria-label="default input example">
+                                <input asp-for="Input.CalcType" list="datalistOptions" class="form-control" placeholder="Calcuation Method" aria-label="default input example">
+                                <datalist id="datalistOptions">
+                                    <option value="decaying_average" />
+                                    <option value="n_mastery" />
+                                    <option value="latest" />
+                                    <option value="highest" />
+                                </datalist>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         }
+
     }
 }
-
 
 @*keeping the below code because it might be useful someday*@
 
@@ -76,9 +283,8 @@
         html += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
         html += '</div>';
           html += '<div class="modal-body">';-->
-
-       @*//html += '<p>' + @Model.Outcomes[0].outcome.title +'</p>';*@
-        <!--<!--<!--html += '<p>'+'test</p>';
+@*//html += '<p>' + @Model.Outcomes[0].outcome.title +'</p>';*@
+<!--<!--<!--html += '<p>'+'test</p>';
         html += '</div>';
         html += '<div class="modal-footer">';
         html += '<span class="btn btn-primary" data-dismiss="modal">Close</span>';
@@ -95,5 +301,3 @@
         });
     }
 </script>-->
-
-

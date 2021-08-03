@@ -30,6 +30,7 @@ namespace OutcomeManagementSystem.Pages.ProgramOutcomes
 
             ProgramOutcome = await _context.ProgramOutcomes
                 .Include(clos => clos.CLOs)
+                .ThenInclude(c => c.Course)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (ProgramOutcome == null)

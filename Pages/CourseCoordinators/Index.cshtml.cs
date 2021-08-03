@@ -19,11 +19,13 @@ namespace OutcomeManagementSystem.Pages.CourseCoordinators
             _context = context;
         }
 
-        public IList<CourseCoordinator> CourseCoordinator { get;set; }
+        public IList<CourseCoordinator> CourseCoordinators { get;set; }
 
         public async Task OnGetAsync()
         {
-            CourseCoordinator = await _context.CourseCoordinators.ToListAsync();
+            CourseCoordinators = await _context.CourseCoordinators
+                .Include(c => c.Courses).ToListAsync();
+
         }
     }
 }
