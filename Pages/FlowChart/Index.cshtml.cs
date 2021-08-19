@@ -24,9 +24,14 @@ namespace OutcomeManagementSystem.Pages.FlowChart
         public IEnumerable<string> Concentrations { get; set; }
         public string SelectedConcentration { get; set; }
 
+        public List<CourseLayout> CurriculumLayout { get; set; }
+
         public async Task OnGetAsync(int? id, string concentration)
         {
+            CurriculumLayout = new List<CourseLayout>();
+
             CourseData = new CourseIndexData();
+
             CourseData.Courses = await _context.Courses
                 .Include(i => i.CLOs)
                     .ThenInclude(i => i.SO_KPI)
@@ -59,5 +64,12 @@ namespace OutcomeManagementSystem.Pages.FlowChart
                 CourseData.CLOs = selectedCourse.CLOs;
             }
         }
+    }
+
+    public class CourseLayout
+    {
+        public Course Course { get; set; }
+        public (int ix, int iy) CourseCord { get; set; }
+        public List<(int ix, int iy)> PreReqCord { get; set; }
     }
 }

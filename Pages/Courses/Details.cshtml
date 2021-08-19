@@ -87,57 +87,71 @@
             @Html.DisplayNameFor(model => model.Course.PreReqs)
         </dt>
         <dd class="col-sm-10">
-            <table class="table">
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Course.PreReqs.First().ReqCourse.Department)</th>
-                    <th>@Html.DisplayNameFor(model => model.Course.PreReqs.First().ReqCourse.Number)</th>
-                    <th>@Html.DisplayNameFor(model => model.Course.PreReqs.First().ReqCourse.Title)</th>
-                </tr>
-                @foreach (var item in Model.Course.PreReqs)
-                {
+            @if (Model.Course.PreReqs.Count == 0)
+            {
+                <h6>No prerequisites for this course.</h6>
+            }
+            else
+            {
+                <table class="table">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReqCourse.Department)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReqCourse.Number)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReqCourse.Title)
-                        </td>
+                        <th>@Html.DisplayNameFor(model => model.Course.PreReqs.First().ReqCourse.Department)</th>
+                        <th>@Html.DisplayNameFor(model => model.Course.PreReqs.First().ReqCourse.Number)</th>
+                        <th>@Html.DisplayNameFor(model => model.Course.PreReqs.First().ReqCourse.Title)</th>
                     </tr>
-                }
-            </table>
-        </dd>
+                    @foreach (var item in Model.Course.PreReqs)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReqCourse.Department)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReqCourse.Number)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReqCourse.Title)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Course.CLOs)
         </dt>
         <dd class="col-sm-10">
-            <table class="table">
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Course.CLOs.First().Description)</th>
-                    <th>@Html.DisplayNameFor(model => model.Course.CLOs.First().ProgramOutcome.Concentration)</th>
-                    <th>@Html.DisplayNameFor(model => model.Course.CLOs.First().SO_KPI.Description)</th>
-                    <th>@Html.DisplayNameFor(model => model.Course.CLOs.First().CLOCode)</th>
-                </tr>
-                @foreach (var item in Model.Course.CLOs)
-                {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProgramOutcome.Concentration)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SO_KPI.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CLOCode)
-                </td>
-            </tr>
-                }
-            </table>
+            @if (Model.Course.CLOs.Count == 0)
+            {
+                <h6>No CLOs for this course.</h6>
+            }
+            else
+            {
+                <table class="table">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Course.CLOs.First().Description)</th>
+                        <th>@Html.DisplayNameFor(model => model.Course.CLOs.First().ProgramOutcome.Concentration)</th>
+                        <th>@Html.DisplayNameFor(model => model.Course.CLOs.First().SO_KPI.Description)</th>
+                        <th>@Html.DisplayNameFor(model => model.Course.CLOs.First().CLOCode)</th>
+                    </tr>
+                    @foreach (var item in Model.Course.CLOs)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProgramOutcome.Concentration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SO_KPI.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CLOCode)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
         </dd>
 
     </dl>

@@ -12,11 +12,12 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         const string token = "15279~OG82FJYfmMcWrcQqBEfMum3M38WSUUl470yUSDU0m5NvbQO7suvnM6HUTfHYXyMN";
         //const string token = "15279~QelpTxI5yIH9FUTaksgYdERBm83qsYJR5bbAYGGmdVEBF8i3VMSOarre6Ctfggjw";
         const string domain = "calpoly.instructure.com";
-        public string domaininfo = $"https://canvas.calpoly.edu/api/v1";
+        public string domaininfo = $"https://canvas.calpoly.edu";
+
         public JsonResults.Outcome GetOutcome(string outcomeID)
         {
 
-            string url = domaininfo + $"/outcomes/" + outcomeID + "?access_token=" + token;
+            string url = domaininfo + $"/api/v1/outcomes/" + outcomeID + "?access_token=" + token;
             var restClient = new RestClient(url);
             restClient.ThrowOnAnyError = true;
             restClient.ThrowOnDeserializationError = true;
@@ -38,7 +39,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         public IRestResponse GetOutcomeGroup(string outcomegroupID)
         {
 
-            string url = domaininfo + $"/accounts/1/outcome_groups/" + outcomegroupID + "?access_token=" + token;
+            string url = domaininfo + $"/api/v1/accounts/1/outcome_groups/" + outcomegroupID + "?access_token=" + token;
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.GET);
 
@@ -48,7 +49,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         {
 
             //string url = domaininfo + $"/outcomes/953?access_token={token}";
-            string url = domaininfo + $"/outcomes/" + outcomeID + "?access_token=" + token;
+            string url = domaininfo + $"/api/v1/outcomes/" + outcomeID + "?access_token=" + token;
 
             //JObject jObjectbody = new JObject();
             //jObjectbody.Add("outcome_id", 12345);
@@ -68,7 +69,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             string domaininfo = $"https://canvas.calpoly.edu/api/v1";
 
 
-            string url = domaininfo + $"/accounts/1/outcome_groups/" + outcomegroupID + "/outcomes?access_token=" + token;
+            string url = domaininfo + $"/api/v1/accounts/1/outcome_groups/" + outcomegroupID + "/outcomes?access_token=" + token;
 
             //JObject jObjectbody = new JObject();
             ////jObjectbody.Add("outcome_id", 12345);
@@ -86,7 +87,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         public IRestResponse DeleteOutcome(int outcomeID, int outcomegroupID)
         {
             
-            string url = domaininfo + $"/accounts/1/outcome_groups/"+outcomegroupID+"/outcomes/" + outcomeID + "?access_token=" + token;
+            string url = domaininfo + $"/api/v1/accounts/1/outcome_groups/" +outcomegroupID+"/outcomes/" + outcomeID + "?access_token=" + token;
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.DELETE);
 
@@ -95,7 +96,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         public IRestResponse DeleteCourseOutcomeGroup(string courseID, string outcomegroupID)
         {
 
-            string url = domaininfo + $"/courses/" + courseID + "/outcome_groups/" + outcomegroupID + "?access_token=" + token;
+            string url = domaininfo + $"/api/v1/courses/" + courseID + "/outcome_groups/" + outcomegroupID + "?access_token=" + token;
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.DELETE);
 
@@ -105,7 +106,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         public List<JsonResults.OutcomeGroup> GetAccountOutcomeSubGroups(int outcomegroupID)
         {
 
-            string url = domaininfo + $"/accounts/1/outcome_groups/" + outcomegroupID + "/subgroups?include=items&per_page=20;access_token=" + token;
+            string url = domaininfo + $"/api/v1/accounts/1/outcome_groups/" + outcomegroupID + "/subgroups?include=items&per_page=20;access_token=" + token;
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.GET);
 
@@ -115,7 +116,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         public List<JsonResults.OutcomeGroup> GetAllAccountOutcomeGroups()
         {
 
-            string url = domaininfo + $"/accounts/1/outcome_groups?include=items&per_page=100;access_token=" + token;
+            string url = domaininfo + $"/api/v1/accounts/1/outcome_groups?include=items&per_page=100;access_token=" + token;
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.GET);
             var test = restClient.Execute<List<JsonResults.OutcomeGroup>>(request);
@@ -125,7 +126,18 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         public List<JsonResults.OutcomeWrapper> GetSubGroupOutcomes(int outcomegroupID)
         {
 
-            string url = domaininfo + $"/accounts/1/outcome_groups/" + outcomegroupID + "/outcomes?include=items&per_page=20;access_token=" + token;
+            string url = domaininfo + $"/api/v1/accounts/1/outcome_groups/" + outcomegroupID + "/outcomes?include=items&per_page=20;access_token=" + token;
+            var restClient = new RestClient(url);
+            var request = new RestRequest(Method.GET);
+
+            var test = restClient.Execute<List<JsonResults.OutcomeWrapper>>(request);
+            return test.Data;
+        }
+
+        public List<JsonResults.OutcomeWrapper> GetSubGroupOutcomes(string outcomes_url)
+        {
+            string url = domaininfo + outcomes_url + "?include=items&per_page=20;access_token=" + token;
+            //string url = domaininfo + $"/api/v1/accounts/1/outcome_groups/" + outcomegroupID + "/outcomes?include=items&per_page=20;access_token=" + token;
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.GET);
 
@@ -135,7 +147,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         public IRestResponse GetCourseOutcomeGroup(string courseID)
         {
 
-            string url = domaininfo + $"/courses/" + courseID + "/outcome_groups?access_token=" + token;
+            string url = domaininfo + $"/api/v1/courses/" + courseID + "/outcome_groups?access_token=" + token;
             var restClient = new RestClient(url);
             var request = new RestRequest(Method.GET);
 

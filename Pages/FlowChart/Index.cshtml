@@ -6,6 +6,13 @@
     ViewData["Title"] = "Flow Chart";
 }
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous">
+</script>
+<script type="text/javascript"></script>
+<script src="~/js/site.js"></script>
+
 <h1>Flow Chart</h1>
 
 <style type="text/css">
@@ -25,6 +32,11 @@
         background-color: #ffcc99;
     }
 </style>
+<style>
+    .course-button:hover {
+        fill: green;
+    }
+</style>
 <div class="dropdown">
     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
         Select Concentration
@@ -37,115 +49,243 @@
         }
     </ul>
 </div>
-
-<div class="container-fluid bg-light p-3 rounded-3">
-    <div class="d-grid">
-        <div class="row">
-            <div class="col-xl-9">
-                <div class="row">
-                    @foreach (YearType y in Enum.GetValues(typeof(YearType)))
+<div class="container-fluid">
+    <div class="curriculum-vizualization">
+        <div class="curriculum-graph">
+            <svg fill="#f5f5f5" height="1000" width="1000" viewBox="0 0 1000 1000" id="termView">
+                <marker id="Triangle" viewBox="0 -5 10 10" refX="0" markerWidth="6" markerHeight="6" orient="auto" class="end-marker" stroke="grey" fill="grey">
+                    <path d="M 0 -5 L 10 0 L 0 5 z"></path>
+                </marker>
+                <rect width="1000" height="1000" fill="green" />
+                @{int ix = 0; }
+                @foreach (YearType y in Enum.GetValues(typeof(YearType)))
+                {
+                    if (y != YearType.unknown)
                     {
-                        if (y != YearType.unknown)
-                        {
-                        <div class="col-xl-3">
-                            @string.Concat(y + " Year")
+                        string.Concat(y.ToString() + " Year");
 
-                            <div class="row">
-                                @foreach (QuarterType q in Enum.GetValues(typeof(QuarterType)))
+                        foreach (QuarterType q in Enum.GetValues(typeof(QuarterType)))
+                        {
+                            if (q != QuarterType.unknown)
+                            {
+                                q.ToString();
+
+                                int iy = 0;
+                                foreach (var course in Model.CourseData.Courses.Where(c => c.Quarter == q && c.Year == y && c.Quarter != QuarterType.unknown))
                                 {
-                                    <div class="col-xl-4">
-                                        @if (q != QuarterType.unknown)
+                                    double cardHeght = 100;
+                                    string id = string.Concat(course.Department, course.Number);
+                                    string c = "card course " + course.Type;
+                                    double cw = 1000.0 / 12 - 5;
+                                    double cx = (cw + 5) * ix;
+                                    double cy = cardHeght * iy + 5;
+                                    CourseLayout courseLayout = new CourseLayout();
+                                    courseLayout.Course = course;
+                                    courseLayout.CourseCord = (ix: ix, iy: iy);
+                                    courseLayout.PreReqCord = new List<(int, int)>();
+                                    Model.CurriculumLayout.Add(courseLayout);
+
+                                    @if (course.PreReqs != null)
+                                    {
+                                        foreach (var pr in course.PreReqs)
                                         {
-                                            @q;
+                                            c += " " + string.Concat(pr.PreReqDept, pr.PreReqNumber);
                                         }
-                                        @foreach (var course in Model.CourseData.Courses.Where(c => c.Quarter == q && c.Year == y && c.Quarter != QuarterType.unknown))
-                                        {
-                                            string borderStyle = "";
-                                            <div class="row p-1">
-                                                @if (Model.CourseData.PreReqs != null)
-                                                {
-                                                    if (Model.CourseData.PreReqs.Where(c => c.ReqCourse.Department == course.Department && c.ReqCourse.Number == course.Number).Any())
-                                                    {
-                                                        borderStyle = "card border-dark border-3 mb-3";
-                                                    }
-                                                }
-                                                <div class="card @borderStyle @course.Type">
-                                                    <div class="card-body p-0 m-0">
-                                                        <div class="card-title text-center">
-                                                            @string.Concat(course.Department + " " + course.Number)
-                                                        </div>
-                                                        <a asp-page="./Index" asp-route-id="@course.ID" asp-route-concentration="@Model.SelectedConcentration" type="button" class="btn btn-outline-primary">Info</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
+                                    }
+                                    <g transform="translate(@cx, @cy)">
+                                        <rect fill="#f5f5f5" height="95" width="@cw" />
+                                        <rect id="@id" class="@c" fill="none" height="30" width="30" transform="translate(15,15)" />
+                                        <circle cx="30" cy="30" r="15" fill="none" stroke="black" />
+                                        <text y="60" stroke="black" fill="black">
+                                            <tspan>@id</tspan>
+                                        </text>
+                                    </g>
+                                    iy++;
                                 }
-                            </div>
-                        </div>
+                                ix++;
+                            }
                         }
                     }
-                </div>
-            </div>
+                }
+                @foreach(var cl in Model.CurriculumLayout)
+                {
+                    if (cl.Course.PreReqs.Count > 0)
+                    {
+                        foreach (var prc in cl.Course.PreReqs)
+                        {
+                            var c = Model.CurriculumLayout.Find(c => c.Course.ID == prc.ReqCourse.ID);
+                            if (c != null)
+                                cl.PreReqCord.Add(c.CourseCord);
+                        }
+
+                    }
+                }
+                @foreach(var c in Model.CurriculumLayout)
+                {
+                    if(c.PreReqCord.Count > 0)
+                    {
+                        foreach (var pc in c.PreReqCord)
+                        {
+                            double cw = 1000.0 / 12 - 5;
+                            double px, py, cx, cy;
+                            double cp1x, cp1y, cp2x, cp2y;
+
+                            if (pc.ix == c.CourseCord.ix) //Courses in same column
+                            {
+                                px = (cw + 5) * pc.ix + 30;
+                                cx = (cw + 5) * c.CourseCord.ix + 30;//(cardWidth + margin)*index + circleCenter
+                                if (pc.iy < c.CourseCord.iy) // prereq is above course
+                                {
+                                    py = 100 * pc.iy + 30 + 15 + 5 + 1;//cardHeight*index + circleCenter + margin
+                                    cy = 100 * c.CourseCord.iy + 30 - 15 - 2;
+                                }
+                                else //prereq is below course
+                                {
+                                    py = 100 * pc.iy + 30 - 10 - 1;//cardHeight*index + circleCenter + margin
+                                    cy = 100 * c.CourseCord.iy + 30 + 15 + 5 +5 + 2;
+                                }
+                            }
+
+                            else
+                            {
+                                px = (cw + 5) * pc.ix + 46;//(cardWidth + margin) * index + circleCenter + circleRadius
+                                py = 100 * pc.iy + 30 + 5;//cardHeight*index + circleCenter + cardMargin
+                                cx = (cw + 5) * c.CourseCord.ix + 8;//(cardWidth + 5)*index + circleCenter - circleRadius
+                                cy = 100 * c.CourseCord.iy + 30 + 5;
+                            }
+
+                            if (pc.iy == c.CourseCord.iy && c.CourseCord.ix - pc.ix > 1) //Courses in same row
+                            {
+                                cp1x = px + 35;
+                                cp1y = py - 35;
+                                cp2x = cx - 35;
+                                cp2y = cy - 35;
+                                cy -= 3; // a little nudge to make the arrow tips line up
+                                cx += 1;
+                            }
+                            else
+                            {
+                                cp1x = (cx - px) / 2 + px;
+                                cp1y = py;
+                                cp2x = cp1x;
+                                cp2y = cy;
+                            }
+
+                            <path d="M @px , @py C @cp1x, @cp1y, @cp2x, @cp2y, @cx, @cy", stroke="grey" fill="transparent" marker-end="url(#Triangle)"/>
+                    }
+                    }
+                }
+                @{ix = 0; }
+                @foreach (YearType y in Enum.GetValues(typeof(YearType)))
+                {
+                    if (y != YearType.unknown)
+                    {
+                        string.Concat(y.ToString() + " Year");
+
+                        foreach (QuarterType q in Enum.GetValues(typeof(QuarterType)))
+                        {
+                            if (q != QuarterType.unknown)
+                            {
+                                q.ToString();
+
+                                int iy = 0;
+                                foreach (var course in Model.CourseData.Courses.Where(c => c.Quarter == q && c.Year == y && c.Quarter != QuarterType.unknown))
+                                {
+                                    string id = string.Concat(course.Department, course.Number);
+                                    string c = "card course " + course.Type;
+                                    double cw = 1000.0 / 12 - 5;
+                                    double cx = (cw + 5) * ix;
+                                    double cy = 100 * iy + 5;
+
+                                    @if (course.PreReqs != null)
+                                    {
+                                        foreach (var pr in course.PreReqs)
+                                        {
+                                            c += " " + string.Concat(pr.PreReqDept, pr.PreReqNumber);
+                                        }
+                                    }
+                                    <g transform="translate(@cx, @cy)">
+                                        <circle class="course-button" cx="30" cy="30" r="15" fill="transparent" stroke="black" />
+                                        
+                                    </g>
+                                    iy++;
+                                }
+                                ix++;
+                            }
+                        }
+                    }
+                }
+            </svg>
         </div>
     </div>
 </div>
-
-<div class="container-fluid bg-light p-3 rounded-3">
+<div class="container-fluid bg-light border-1 p-3 rounded-3">
     <div class="d-grid">
-        <div class="col-xl-3">
+        <div class="col-xl-12">
             <h3>Prerequisites</h3>
             @if (Model.CourseData.PreReqs != null)
             {
                 <table class="table">
-                    <tr>
-                        <th>
-                            Department
-                        </th>
-                        <th>
-                            Number
-                        </th>
-                        <th></th>
-                    </tr>
-                    @foreach (var item in Model.CourseData.PreReqs)
-                    {
+                    <thead>
                         <tr>
-                            <td>
-                                @item.ReqCourse.Department
-                            </td>
-                            <td>
-                                @item.ReqCourse.Number
-                            </td>
+                            <th>
+                                Department
+                            </th>
+                            <th>
+                                Number
+                            </th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CourseData.PreReqs)
+                        {
+                            <tr>
+                                <td>
+                                    @item.ReqCourse.Department
+                                </td>
+                                <td>
+                                    @item.ReqCourse.Number
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             }
             <h3>CLOs for </h3>
             @if (Model.CourseData.CLOs != null)
             {
-                <table class="table text-truncate">
-                    <tr>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            ABET KPI
-                        </th>
-                        <th></th>
-                    </tr>
-                    @foreach (var item in Model.CourseData.CLOs)
-                    {
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>
-                                @item.Description
-                            </td>
-                            <td>
-                                @item.SO_KPI.Description
-                            </td>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                ABET KPI
+                            </th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CourseData.CLOs)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Description
+                                </td>
+                                <td>
+                                    @item.SO_KPI.Description
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             }
         </div>
     </div>
 </div>
+
+<!--
+<script>
+    $('.course').bezier({ strokeWidth: 1, strokeColor: 'blue', fill: "transparent", zorder: 1 });
+</script>
+    -->

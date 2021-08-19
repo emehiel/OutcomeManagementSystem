@@ -1,0 +1,52 @@
+Curriculum,Aerospace Engineering,,,,,,,,,
+Degree Plan,Astronautics,,,,,,,,,
+Institution,"California Polytechnic State University, San Luis Obispo",,,,,,,,,
+Degree Type,BS,,,,,,,,,
+System Type,quarter,,,,,,,,,
+CIP,14.0201,,,,,,,,,
+Courses,,,,,,,,,,
+Course ID,Course Name,Prefix,Number,Prerequisites,Corequisites,Strict-Corequisites,Credit Hours,Institution,Canonical Name,Term
+1,Introdcution to Aerospace Engineering,AERO,121,,,,2,,,1
+2,Introduction to Aerospace Design,AERO,215,1;38,,,2,,,4
+3,Aerospace Systems Engineering and Integration,AERO,220,1,,,1,,,5
+4,Aerospace Thermodynamics,AERO,299,49,5,,4,,,6
+5,Aerospace Engineering Analysis,AERO,300,2;40;48;44,,,5,,,6
+6,Aerospace Fluid Mechanics,AERO,302,49,5,,4,,,7
+7,Aerospace Gas Dynamics and Heat Transfer,AERO,303,4;6,,,4,,,8
+10,Fundamentals of Dynamics and Control,AERO,320,5;49,,11,4,,,7
+11,"Experimental Sensors, Actuators and Control",AERO,321,,,,1,,,7
+12,Aerospace Structural Analysis I,AERO,331,5;49;51,,,4,,,8
+13,Fundamentals of Systems Engineering,AERO,350,3,,,2,,,8
+14,Introduction to Orbital Mechanics,AERO,351,5;49,,,4,,,7
+16,Space Environments I,AERO,355,5,,,3,,,8
+17,Space Environments II,AERO,356,4;16,,,3,,,9
+19,Spacecraft Propulsion Systems,AERO,402,7;16;45,,,5,,,10
+25,Spacecraft Electrical and Electric Systems,AERO,446,49;52;53;16,,,4,,,9
+26,Spacecraft Design I,AERO,447,41;2;7;13;14;32;33;25,19,,3,,,10
+27,Spacecraft Design II,AERO,448,26,,,3,,,11
+28,Spacecraft Design III,AERO,449,27,,,3,,,12
+30,Aerospace Engineering Professional Preparation,AERO,460,,,,1,,,10
+31,Aerospace Systems Senior Laboratory,AERO,465,7;10;33,,,1,,,11
+32,Spacecraft Attitude Dynamics and Control,AERO,421,10;14,,,4,,,9
+33,Aerospace Structural Analysis II,AERO,431,12,,,4,,,9
+34,Experimental Stress Analysis,AERO,433,12;33,,,1,,,10
+36,Calculus 1,MATH,141,,,,4,,,1
+37,Calculus 2,MATH,142,36,,,4,,,2
+38,Calculus 3,MATH,143,37,,,4,,,3
+39,Calculus 4,MATH,241,38,,,4,,,4
+40,Linear Analysis 1,MATH,244,38,,,4,,,5
+41,Introduction to Design and Manufacturing,IME,144,,,,4,,,1
+42,General Physics 1,PHYS,141,,,,4,,,2
+43,General Physics 2,PHYS,132,42,,,4,,,3
+44,General Physics 3,PHYS,133,42;37,,,4,,,4
+45,General Chemistry,CHEM,124,,,,4,,,2
+46,Expository Writing,ENGL,133,,,,4,,,1
+47,Oral Communication,COMS,101,,,,4,,,2
+48,Engineering Statics,ME,211,39;42,,,3,,,4
+49,Engineering Dynamics,ME,212,39;48,,,3,,,5
+50,Mechanics of Materias 1,CE,204,48,,,3,,,5
+51,Mechanics of Materias 2,CE,207,50,,,2,,,6
+52,Electrical Circuit Theory,EE,201,40;44,,,3,,,6
+53,Electrical Circuit Theory Lab,EE,251,,,52,1,,,6
+54,Statistical Methods for Engineers,STAT,312,,,,4,,,7
+55,Materials Engineering,MATE,210,45,,,3,,,5

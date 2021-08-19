@@ -34,27 +34,29 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
         public JsonResults.Outcome SelectedOutcome { get; set; }
         public JsonResults.OutcomeGroup SelectedOutcomeGroup { get; set; }
         public List<(int?, string)> BreadCrumbs = new List<(int?, string)>();
+        public IEnumerable<HierarchyNode<OutcomeGroupWrapper>> OutcomeTree { get; set; }
 
         public void OnGet(int? id, int? subGroupId)
         {
             AccOutcome = CanvasAPI.GetAllAccountOutcomeGroups();
-            var AccOutcomeWrapperList = new List<OutcomeGroupWrapper>();
-            
-            /*
-            foreach(var ao in AccOutcome)
-            {
-                var ocgw = new OutcomeGroupWrapper();
-                ocgw.OutcomeGroup = ao;
-                ocgw.Id = ao.id;
-                if (ao.parent_outcome_group != null)
-                    ocgw.ParentId = ao.parent_outcome_group.id;
-                else
-                    ocgw.ParentId = null;
-                AccOutcomeWrapperList.Add(ocgw);
-            }
+            //var AccOutcomeWrapperList = new List<OutcomeGroupWrapper>();
 
-            var tree = AccOutcomeWrapperList.AsHierarchy(e => e.Id, e => e.ParentId);
-            */
+
+            //foreach (var ao in AccOutcome)
+            //{
+            //    var ocgw = new OutcomeGroupWrapper();
+            //    ocgw.OutcomeGroup = ao;
+            //    ocgw.Id = ao.id;
+            //    ocgw.Outcomes = CanvasAPI.GetSubGroupOutcomes(ao.outcomes_url);
+            //    if (ao.parent_outcome_group != null)
+            //        ocgw.ParentId = ao.parent_outcome_group.id;
+            //    else
+            //        ocgw.ParentId = null;
+            //    AccOutcomeWrapperList.Add(ocgw);
+            //}
+
+            //OutcomeTree = AccOutcomeWrapperList.AsHierarchy(e => e.Id, e => e.ParentId);
+            
             if (id == null) id = 1;
             
             SelectedOutcomeGroup = AccOutcome.Find(s => s.id == id);
@@ -208,15 +210,16 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
         public int? ParentId { get; set; }
         public int Id { get; set; }
         public JsonResults.OutcomeGroup OutcomeGroup { get; set; }
+        public List<JsonResults.OutcomeWrapper> Outcomes { get; set; }
 
     }
-    //public class OutcomeGroupNode
-    //{
-    //    public JsonResults.OutcomeGroup OutcomeGroup { get; set; }
-    //    public List<JsonResults.OutcomeWrapper> Outcomes { get; set; }
-    //    public IEnumerable<OutcomeGroupNode> ChildNodes { get; set; }
-    //    public int Depth { get; set; }
-    //    public JsonResults.OutcomeGroup Parent { get; set; }
-    //}
+    public class OutcomeGroupNode
+    {
+        public JsonResults.OutcomeGroup OutcomeGroup { get; set; }
+        public List<JsonResults.OutcomeWrapper> Outcomes { get; set; }
+        public IEnumerable<OutcomeGroupNode> ChildNodes { get; set; }
+        public int Depth { get; set; }
+        public JsonResults.OutcomeGroup Parent { get; set; }
+    }
 
 }

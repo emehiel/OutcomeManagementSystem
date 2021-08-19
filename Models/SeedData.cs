@@ -128,7 +128,24 @@ namespace OutcomeManagementSystem.Models
                 };
                 context.Assessments.AddRange(Assessments);
                 context.SaveChanges();
+
+                OutputCurriculum(context);
             }
+        }
+
+        public static bool OutputCurriculum(OutcomeManagementSystemContext context)
+        {
+            var streamWriter = new StreamWriter(@"curriculu-aero.csv");
+            var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
+
+            csvWriter.WriteHeader<Course>();
+            csvWriter.NextRecord();
+            foreach(var course in context.Courses)
+            {
+                csvWriter.WriteRecord(course);
+                csvWriter.NextRecord();
+            }
+            return true;
         }
         public static List<Course> LoadCatalogFromHTLM(OutcomeManagementSystemContext context)
         {

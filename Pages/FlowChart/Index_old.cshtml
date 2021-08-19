@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="container-fluid bg-light p-3 rounded-3">
+        <div class="d-grid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        @foreach (YearType y in Enum.GetValues(typeof(YearType)))
+                        {
+                        if (y != YearType.unknown)
+                        {
+                        <div class="col-3">
+                            @string.Concat(y + " Year")
+
+                            <div class="row">
+                                @foreach (QuarterType q in Enum.GetValues(typeof(QuarterType)))
+                                {
+                                <div class="col-4">
+                                    @if (q != QuarterType.unknown)
+                                    {
+                                    @q;
+                                    }
+                                    @foreach (var course in Model.CourseData.Courses.Where(c => c.Quarter == q && c.Year == y && c.Quarter != QuarterType.unknown))
+                                    {
+                                    string borderStyle = "";
+                                    string id = string.Concat(course.Department, course.Number);
+                                    string c = "card course " + course.Type;
+                                    <div class="row p-2">
+                                        @if (Model.CourseData.PreReqs != null)
+                                        {
+                                        if (Model.CourseData.PreReqs.Where(c => c.ReqCourse.Department == course.Department && c.ReqCourse.Number == course.Number).Any())
+                                        {
+                                        borderStyle = "card border-dark border-3 mb-3";
+                                        }
+                                        }
+                                        @if (course.PreReqs != null)
+                                        {
+                                        foreach (var pr in course.PreReqs)
+                                        {
+                                        c += " " + string.Concat(pr.PreReqDept, pr.PreReqNumber);
+                                        }
+                                        }
+                                        <div class="@c" id="@id">
+                                            <div class="card-body">
+                                                <div class="card-title text-center">
+                                                    @string.Concat(course.Department + " " + course.Number)
+                                                </div>
+                                                <a asp-page="./Index" asp-route-id="@course.ID" asp-route-concentration="@Model.SelectedConcentration" type="button" class="btn btn-outline-primary ">Info</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-light border-1 p-3 rounded-3">
+        <div class="d-grid">
+            <div class="col-xl-12">
+                <h3>Prerequisites</h3>
+                @if (Model.CourseData.PreReqs != null)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Department
+                            </th>
+                            <th>
+                                Number
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CourseData.PreReqs)
+                        {
+                        <tr>
+                            <td>
+                                @item.ReqCourse.Department
+                            </td>
+                            <td>
+                                @item.ReqCourse.Number
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+                <h3>CLOs for </h3>
+                @if (Model.CourseData.CLOs != null)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                ABET KPI
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CourseData.CLOs)
+                        {
+                        <tr>
+                            <td>
+                                @item.Description
+                            </td>
+                            <td>
+                                @item.SO_KPI.Description
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

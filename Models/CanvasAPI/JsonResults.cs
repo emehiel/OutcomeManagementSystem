@@ -86,6 +86,11 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             public int GrpID { get; set; }
         }
 
+        public class Assessment
+        {
+
+        }
+
     }
     }
 
