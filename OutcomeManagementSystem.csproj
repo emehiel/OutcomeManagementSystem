@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210423174913_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210423174913_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210823185709_update.cs" />
+    <Compile Remove="Migrations\20210823185709_update.Designer.cs" />
     <Compile Remove="Models\CLOMap.cs" />
     <Compile Remove="Models\PreReqMap.cs" />
   </ItemGroup>
