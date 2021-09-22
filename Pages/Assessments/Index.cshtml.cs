@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OutcomeManagementSystem.Data;
 using OutcomeManagementSystem.Models;
 using OutcomeManagementSystem.Models.AssessmentResultsViewModels;
+using OutcomeManagementSystem.Models.CanvasAPI;
 
 namespace OutcomeManagementSystem.Pages.Assessments
 {
@@ -26,9 +27,11 @@ namespace OutcomeManagementSystem.Pages.Assessments
         public string MasteryLabels { get; set; }
         public List<string> OutcomeNames { get; set; }
         public string OutcomeNamesString { get; set; }
+        public APIFunctions CanvasAPI = new APIFunctions();
 
         public async Task OnGetAsync()
         {
+            var OutcomeResults = CanvasAPI.GetOutcomeResults(45619);
             AssessmentResults = new AssessmentResults
             {
                 Assessments = await _context.Assessments.ToListAsync()

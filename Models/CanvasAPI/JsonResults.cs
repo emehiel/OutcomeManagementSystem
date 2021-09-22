@@ -40,7 +40,7 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         {
             public int id { get; set; }
             public int context_id { get; set; }
-            public string context_type { get; set; }
+            public string ContextType { get; set; }
             public object vendor_guid { get; set; }
             public string display_name { get; set; }
             public string title { get; set; }
@@ -53,8 +53,8 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
 
         public class OutcomeWrapper
         {
-            public int context_id { get; set; }
-            public string context_type { get; set; }
+            public int Context_id { get; set; }
+            public string contex_type { get; set; }
             public bool quiz_lti { get; set; }
             public string url { get; set; }
             public ParentOutcomeGroup outcome_group { get; set; }
@@ -86,9 +86,28 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             public int GrpID { get; set; }
         }
 
-        public class Assessment
+        public class OutcomeResultWrapper
         {
-
+            public List<OutcomeResult> OutcomeResults { get; set; }
+        }
+        public class OutcomeResult
+        {
+            public int id { get; set; }
+            public double score { get; set; }
+            public bool mastery { get; set; }
+            public double possible { get; set; }
+            public bool hide_points { get; set; }
+            public bool hidden { get; set; }
+            public string submitted_or_assessed_at { get; set; }
+            public Links links { get; set; }
+            
+        }
+        public class Links
+        {
+            public int user { get; set; }
+            public int learning_outcome { get; set; }
+            public string alignment { get; set; }
+            public string assignment { get; set; }
         }
 
     }

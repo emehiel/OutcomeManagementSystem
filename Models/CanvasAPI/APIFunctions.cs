@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using System.Text.RegularExpressions;
+
 namespace OutcomeManagementSystem.Models.CanvasAPI
 {
     public class APIFunctions
@@ -154,6 +156,30 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
             return restClient.Execute(request);
         }
 
+        public JsonResults.OutcomeResultWrapper GetOutcomeResults(int courseID)
+        {
+
+            string url = domaininfo + $"/api/v1/courses/" + courseID + "/outcome_results?page=1&per_page=100&access_token=" + token;
+            var restClient = new RestClient(url);
+            var request = new RestRequest(Method.GET);
+
+            var test = restClient.Execute<JsonResults.OutcomeResultWrapper>(request);
+            var data = test.Data;
+            int i = 2;
+            while (test.Data.OutcomeResults.Count != 0)
+            {
+                url = domaininfo + $"/api/v1/courses/" + courseID + "/outcome_results?page=" + i.ToString() + "&per_page=100&access_token=" + token;
+                restClient.BaseUrl = new Uri(url);
+                test = restClient.Execute<JsonResults.OutcomeResultWrapper>(request);
+                data.OutcomeResults.AddRange(test.Data.OutcomeResults);
+                i++;
+            }
+            var linkHeader = test.Headers.First(h => h.Name == "Link").Value.ToString();
+
+            var links = LinkHeader.LinksFromHeader(linkHeader);
+
+            return data;// test.Data;
+        }
         //public IRestResponse CanvasGetOutcomeGroup(string outcomegroupID)
         //{
 
@@ -163,5 +189,58 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
 
         //    return restClient.Execute(request);
         //}
+    }
+
+    public class LinkHeader
+    {
+        public string FirstLink { get; set; }
+        public string PrevLink { get; set; }
+        public string NextLink { get; set; }
+        public string LastLink { get; set; }
+
+        public static LinkHeader LinksFromHeader(string linkHeaderStr)
+        {
+            LinkHeader linkHeader = null;
+
+            if (!string.IsNullOrWhiteSpace(linkHeaderStr))
+            {
+                string[] linkStrings = linkHeaderStr.Split(',');
+
+                if (linkStrings != null && linkStrings.Any())
+                {
+                    linkHeader = new LinkHeader();
+
+                    foreach (string linkString in linkStrings)
+                    {
+                        var relMatch = Regex.Match(linkString, "(?<=rel=\").+?(?=\")", RegexOptions.IgnoreCase);
+                        var linkMatch = Regex.Match(linkString, "(?<=<).+?(?=>)", RegexOptions.IgnoreCase);
+
+                        if (relMatch.Success && linkMatch.Success)
+                        {
+                            string rel = relMatch.Value.ToUpper();
+                            string link = linkMatch.Value;
+
+                            switch (rel)
+                            {
+                                case "FIRST":
+                                    linkHeader.FirstLink = link;
+                                    break;
+                                case "PREV":
+                                    linkHeader.PrevLink = link;
+                                    break;
+                                case "NEXT":
+                                    linkHeader.NextLink = link;
+                                    break;
+                                case "LAST":
+                                    linkHeader.LastLink = link;
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return linkHeader;
+        }
     }
 }
