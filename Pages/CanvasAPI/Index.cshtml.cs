@@ -183,6 +183,23 @@ namespace OutcomeManagementSystem.Pages.CanvasAPI
                 jObjectbody.Add("display_name", Input.DisplayName);
                 jObjectbody.Add("description", Input.Description);
                 jObjectbody.Add("calculation_method", Input.CalcType);
+                jObjectbody.Add("mastery_points", 3);
+
+                JArray ratings = new JArray();
+
+                string[] ratingStrings = new string[] { "Exceeds Expectations", "Meets Expectations", "Approaches Expectations", "Needs More Time/Practice to Develop", "No Evidence/Not Evaluated" };
+
+                int points = 4;
+                foreach (var rs in ratingStrings)
+                {
+                    JObject rating = new JObject();
+                    rating.Add("description", rs);
+                    rating.Add("points", points--);
+
+                    ratings.Add(rating);
+                }
+
+                jObjectbody.Add("ratings", ratings);
 
                 var test2 = CanvasAPI.PostOutcome(Input.InputID, jObjectbody);
             }

@@ -67,10 +67,6 @@ namespace OutcomeManagementSystem.Models.CanvasAPI
         }
         public IRestResponse PostOutcome(int outcomegroupID, JObject Jbody)
         {
-
-            string domaininfo = $"https://canvas.calpoly.edu/api/v1";
-
-
             string url = domaininfo + $"/api/v1/accounts/1/outcome_groups/" + outcomegroupID + "/outcomes?access_token=" + token;
 
             //JObject jObjectbody = new JObject();
