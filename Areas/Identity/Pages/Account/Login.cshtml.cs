@@ -115,7 +115,6 @@ namespace OutcomeManagementSystem.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    _logger.LogInformation(""+result+_signInManager.IsSignedIn(User));
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
